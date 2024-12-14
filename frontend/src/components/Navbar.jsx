@@ -1,8 +1,19 @@
 import React from "react";
 import { auth, provider, signInWithPopup } from "../firebaseConfig";
 import {signOut} from "firebase/auth";
+import {useState,useEffect } from "react";
+
 
 export default function Navbar({ user }) {
+
+ const [show,isShow] = useState(false);
+
+    const togglenavbar = () => {
+        isShow(!show);
+    }
+ 
+
+    
     const handleSignIn = async () => {
         try {
             const result = await signInWithPopup(auth, provider); 
@@ -24,36 +35,52 @@ export default function Navbar({ user }) {
     }
 
     return (
-        <div className=" w-[100%] flex p-4 bg-bg-contrast shadow-md ">
+        <>
+        <div className={`w-full flex flex-wrap items-center justify-between px-5 py-3 bg-bg-contrast ${!show ?"shadow-md" : ""}`}>
             
-            <h1 className="text-xxl text-white mr-[20%]">VGC</h1>
-            <div className="flex items-center space-x-8"> 
-            <a href="/" className="text-white">Home</a>
-            <a href="/about" className="text-white">About</a>
-            <a href="/contact" className="text-white">Contact</a>
+            <a href="/" className="text-4xl text-text font-bold">VGC</a>
+            <div className="space-x-8 hidden sm:flex"> 
+            <a href="/" className="text-text">Home</a>
+            <a href="/shop" className="text-text">Shop</a>
+            <a href="/games" className="text-text">Games</a>
             </div>
-            <div className="flex ml-[45%] items-center">
+            <div className="flex items-center">
                 {user ? (
                     <>
                         <img
                             src={user.photoURL}
                             alt={user.displayName}
-                            className="w-10 h-10 rounded-full ml-10"
+                            className="w-10 h-10 rounded-full cursor-pointer"
                         />
-                    <button className="bg-secondary text-white px-4 py-2 rounded ml-8 transition duration-500 ease-in-out hover:scale-110" onClick={handleSignOut}>
+                    <button className="bg-secondary text-text px-4 py-2 rounded ml-8 transition duration-500 ease-in-out hover:scale-110" onClick={handleSignOut}>
                         Logout
                     </button>
                     </>
             
                 ) : (
                     <button
-                        className="bg-secondary text-white px-4 py-2 rounded transition duration-500 ease-in-out hover:scale-110"
+                        className="bg-secondary text-text px-4 py-2 rounded transition duration-500 ease-in-out hover:scale-110"
                         onClick={handleSignIn}
                     >
-                        Login with Google
+                        Login
                     </button>
                 )}
-            </div>
         </div>
+
+                <div className="flex flex-col items-center justify-center space-y-1 cursor-pointer sm:hidden" onClick={togglenavbar}>
+                    <div className="w-6 h-1 bg-text"></div>
+                    <div className="w-6 h-1 bg-text"></div>
+                    <div className="w-6 h-1 bg-text"></div>
+                </div>
+                </div>
+
+            
+                <div className={`px-5 py-3 bg-bg-contrast shadow-md  w-full inline-flex flex-col cursor-pointer sm:hidden ${show ? "block" : "hidden"}`}>
+                    <a href="/" className="text-text text-right">Home</a>
+                    <a href="/shop" className="text-text text-right">Shop</a>
+                    <a href="/games" className="text-text text-right">Games</a>
+                </div>
+    
+        </>
     );
 }

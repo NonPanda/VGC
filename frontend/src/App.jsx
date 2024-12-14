@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import './App.css'
 import {auth } from './firebaseConfig'
 import { use } from 'react'
+import Shop from './components/Shop'
 
 function App() {
   const [user, setUser] = useState(null);
@@ -32,7 +33,8 @@ function App() {
       <Router>
         <Navbar user={user} />
         <Routes>
-        <Route path="/" exact component={Home} />
+        <Route path="/" element={<Home />} />
+        <Route path="/shop" element={<Shop />} />
         </Routes>
 
 

@@ -16,6 +16,22 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --text: #ffffff;
+  --bg: #242424;
+  --primary: #060834;
+  --secondary: #141518;
+  --accent: #646cff;
+  --highlight: #ff6b81;
+  --muted: #9e9e9e;
+  --white: #ffffff;
+  --black: #000000;
+  --gray: #f9f9f9;
+  --light: #f9f9f9;
+  --dark: #1a1a1a;
+  --link: #646cff;
+  --link-hover: #535bf2;
+
+
 }
 
 a {
@@ -29,10 +45,9 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
   min-height: 100vh;
+  background-color: var(--bg);
+  color: var(--text);
 }
 
 h1 {

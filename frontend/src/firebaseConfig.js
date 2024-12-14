@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+
 const firebaseConfig = {
   apiKey: "AIzaSyCUkeYiwVKaAx8rHH21mO0cj8y6SWaNyRo",
   authDomain: "notebux-c7280.firebaseapp.com",

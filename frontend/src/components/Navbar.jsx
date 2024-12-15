@@ -5,8 +5,28 @@ import {useState,useEffect } from "react";
 
 
 export default function Navbar({ user }) {
-
  const [show,isShow] = useState(false);
+
+ const handleSignIn = async () => {
+     try {
+         const result = await signInWithPopup(auth, provider); 
+         const credential = GoogleAuthProvider.credentialFromResult(result);
+         const token = credential.accessToken;
+         const loggedInUser = result.user;
+         console.log("User signed in:", loggedInUser);
+     } catch (error) {
+         console.error("Error during sign-in:", error.message);
+     }
+    }
+    
+ const handleSignOut = async () => {
+     try {
+         await signOut(auth);
+         console.log("User signed out");
+     } catch (error) {
+         console.error("Error during sign-out:", error.message);
+     }
+ }
 
     const togglenavbar = () => {
         isShow(!show);
@@ -14,35 +34,16 @@ export default function Navbar({ user }) {
  
 
     
-    const handleSignIn = async () => {
-        try {
-            const result = await signInWithPopup(auth, provider); 
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
-            const loggedInUser = result.user;
-            console.log("User signed in:", loggedInUser);
-        } catch (error) {
-            console.error("Error during sign-in:", error.message);
-        }
-    };
-    const handleSignOut = async () => {
-        try {
-            await signOut(auth);
-            console.log("User signed out");
-        } catch (error) {
-            console.error("Error during sign-out:", error.message);
-        }
-    }
 
     return (
         <>
-        <div className={`w-full flex flex-wrap items-center justify-between px-5 py-3 bg-primary ${!show ?"shadow-md" : ""}`}>
+        <div className={`w-full flex flex-wrap items-center justify-between px-5 py-3 bg-primary ${!show ?"border-b-accent border-b-4" : ""}`}>
             
-            <a href="/" className="text-4xl text-text font-bold">VGC</a>
+            <a href="/" className="text-4xl text-text font-extrabold">VGC</a>
             <div className="space-x-8 hidden sm:flex"> 
-            <a href="/" className="text-text">Home</a>
-            <a href="/shop" className="text-text">Shop</a>
-            <a href="/games" className="text-text">Games</a>
+            <a href="/" className="text-text text-xl relative after:content-[''] after:block after:w-full after:h-[2px] after:bg-accent after:scale-x-0 after:origin-left after:transition-transform hover:after:scale-x-100">Home</a>
+            <a href="/shop" className="text-text text-xl relative after:content-[''] after:block after:w-full after:h-[2px] after:bg-accent after:scale-x-0 after:origin-left after:transition-transform hover:after:scale-x-100">Shop</a>
+            <a href="/games" className="text-text text-xl relative after:content-[''] after:block after:w-full after:h-[2px] after:bg-accent after:scale-x-0 after:origin-left after:transition-transform hover:after:scale-x-100">Games</a>
             </div>
             <div className="flex items-center">
                 {user ? (
@@ -50,14 +51,15 @@ export default function Navbar({ user }) {
                         <img
                             src={user.photoURL}
                             alt={user.displayName}
-                            className="w-11 h-11 rounded-full cursor-pointer"
+                            className="w-10 h-10 rounded-full cursor-pointer"
                         />
-                    <button className="bg-secondary text-text px-4 py-2 rounded ml-8 transition duration-500 ease-in-out hover:scale-110" onClick={handleSignOut}>
+                    <button className="bg-secondary text-text px-4 py-2 rounded ml-6 transition duration-500 ease-in-out hover:scale-110" onClick={handleSignOut}>
                         Logout
                     </button>
                     </>
             
                 ) : (
+                    
                     <button
                         className="bg-secondary text-text px-4 py-2 rounded transition duration-500 ease-in-out hover:scale-110"
                         onClick={handleSignIn}
@@ -75,7 +77,7 @@ export default function Navbar({ user }) {
                 </div>
 
             
-                <div className={`px-5 py-3 bg-bg-contrast shadow-md  w-full inline-flex flex-col cursor-pointer sm:hidden ${show ? "block" : "hidden"}`}>
+                <div className={`px-5 bg-primary border-b-accent border-b-4 w-full h-full inline-flex flex-col cursor-pointer sm:hidden ${show ? "block" : "hidden"}`}>
                     <a href="/" className="text-text text-right">Home</a>
                     <a href="/shop" className="text-text text-right">Shop</a>
                     <a href="/games" className="text-text text-right">Games</a>

@@ -49,10 +49,10 @@ const game = [
 export default function Shop() {
     
     return (
-        <div className="mt-5 flex flex-col items-center justify-center">
+        <div className="mt-5 flex flex-col items-center justify-center pb-10">
             <div className="flex flex-col items-center justify-center">
                 <h1 className="text-4xl text-white font-bold">Shop</h1>
-                <div className="grid grid-cols-3 gap-6">
+                <div className="grid md:grid-cols-3 grid-cols-2 gap-6">
                     {game.map((game) => (
                         <Gamecard key={game.id} game={game} />
                     ))}

@@ -16,11 +16,16 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --text: #e8edec;
---background: #050606;
---primary: #232927;
---secondary: #1a1045;
---accent: #987e8c;
+  --text: #ecf2f4;
+  --background: #030607;
+  --primary: #4f929c;
+  --secondary: #2f626a;
+  --accent: #337480;
+  --highlight: #f7f7f7;
+  --error: #ff4d4d;
+  --success: #00b894;
+  --warning: #f1c40f;
+
 
 
 }
@@ -64,14 +69,9 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
+ 
   a:hover {
     transition:ease-in-out;
     transition-duration: 0.3s;
     color: var(--accent);
   }
-}

@@ -27,21 +27,32 @@ const game = [
     },
     {
         id: 4,
-        name: "Match Cards",
+        name: "Match Two",
         price: 59.99,
         image: " ../src/assets/match.png"
     },
+    {
+        id: 5,
+        name: "Maze",
+        price: 59.99,
+        image: "../src/assets/maze.png"
+    }
+
+
 ]
+
+
 
     
 
 
 export default function Shop() {
+    
     return (
         <div className="mt-5 flex flex-col items-center justify-center">
             <div className="flex flex-col items-center justify-center">
                 <h1 className="text-4xl text-white font-bold">Shop</h1>
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-3 gap-6">
                     {game.map((game) => (
                         <Gamecard key={game.id} game={game} />
                     ))}

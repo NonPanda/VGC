@@ -36,7 +36,7 @@ export default function Navbar({ user }) {
 
     return (
         <>
-        <div className={`w-full flex flex-wrap items-center justify-between px-5 py-3 bg-bg-contrast ${!show ?"shadow-md" : ""}`}>
+        <div className={`w-full flex flex-wrap items-center justify-between px-5 py-3 bg-primary ${!show ?"shadow-md" : ""}`}>
             
             <a href="/" className="text-4xl text-text font-bold">VGC</a>
             <div className="space-x-8 hidden sm:flex"> 
@@ -50,7 +50,7 @@ export default function Navbar({ user }) {
                         <img
                             src={user.photoURL}
                             alt={user.displayName}
-                            className="w-10 h-10 rounded-full cursor-pointer"
+                            className="w-11 h-11 rounded-full cursor-pointer"
                         />
                     <button className="bg-secondary text-text px-4 py-2 rounded ml-8 transition duration-500 ease-in-out hover:scale-110" onClick={handleSignOut}>
                         Logout

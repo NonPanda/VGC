@@ -7,6 +7,7 @@ import './App.css'
 import {auth } from './firebaseConfig'
 import { use } from 'react'
 import Shop from './components/Shop'
+import Tictactoe from './components/games/tictactoe'
 
 function App() {
   const [user, setUser] = useState(null);
@@ -35,6 +36,7 @@ function App() {
         <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="/game/1" element={<Tictactoe />} />
         </Routes>
 
 

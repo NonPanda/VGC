@@ -9,7 +9,7 @@ import { useEffect } from 'react'
 function Square({ value, onSquareClick }) {
     return (
         <button
-            className="w-28 h-28 bg-accent text-text font-bold text-4xl"
+            className="w-28 h-28 bg-accent text-text font-semibold text-7xl px-0 py-0"
             onClick={onSquareClick}
         >
             {value}
@@ -32,7 +32,6 @@ export default function Tictactoe() {
     const [squares, setSquares] = React.useState(Array(9).fill(null));
     const [winner, setWinner] = React.useState(null);
     const [wins, setWins] = React.useState([0, 0]);
-    const [roundWinners, setRoundWinners] = useState(["", "", ""]);
 
 
     function handleClick(i) {
@@ -95,50 +94,45 @@ export default function Tictactoe() {
 
     return (
         <div className="mt-5 flex flex-col items-center justify-center">
-    {/* Header: Player Scores */}
-    <div className="flex justify-center items-center gap-20 w-full px-10 mb-2">
-    <div className="flex flex-col items-center ml-10">
-        <h1 className="text-2xl text-text font-bold">You (X) </h1>
+    <div className="flex justify-center items-center gap-20 w-full px-10">
+    <div className="flex flex-col items-center ml-1">
+        <h1 className="text-3xl text-[#3cc4bf] font-bold">You</h1>
         <span className="text-xl text-secondary font-bold">{wins[0]}</span>
     </div>
     <div className="flex flex-col items-center">
-        <h1 className="text-2xl text-text font-bold">Baby (O)</h1>
+        <h1 className="text-3xl text-[#3cc4bf] font-bold">Baby</h1>
         <span className="text-xl text-secondary font-bold">{wins[1]}</span>
     </div>
 </div>
 
-    {/* Game Area */}
-    <div className="flex flex-col items-center justify-center px-5 py-5 bg-primary rounded-lg shadow-lg">
-        <button className="bg-accent text-text px-4 py-2 rounded mb-5" onClick={handleWin}>Reset</button>
+    <div className="flex flex-col items-center justify-center px-5 py-2 rounded-lg shadow-lg">
+        <button className={`bg-accent text-text px-4 py-2 rounded mb-5 transition-opacity duration-200 ${winner?'opacity-100 visible' : 'opacity-0 invisible'}`} onClick={handleWin}>Reset</button>
         <div className="grid grid-cols-3 gap-6 mb-3">
             {squares.map((value, index) => (
                 <Square key={index} value={value} onSquareClick={() => handleClick(index)} />
             ))}
         </div>
 
-        <div className="flex justify-center gap-9">
-    {/* Circle for X */}
+        <div className="flex justify-center gap-9 mt-2">
     <div className="flex flex-col items-center">
         <div
-            className={`w-12 h-12 border-4 rounded-full ${winner === 'X' ? 'bg-accent border-secondary' : 'bg-primary border-accent'}`}
+            className={`w-12 h-12 border-8 rounded-full ease-in-out duration-1000 ${winner === 'X' ? 'bg-cool border-primary' : 'bg-bg border-secondary'}`}
         ></div>
-        <span className="text-text mt-2">You</span>
+        <span className="text-cool mt-2">You</span>
     </div>
 
-    {/* Circle for O */}
     <div className="flex flex-col items-center">
         <div
-            className={`w-12 h-12 border-4 rounded-full ${winner === 'O' ? 'bg-accent border-secondary' : 'bg-primary border-accent'}`}
+            className={`w-12 h-12 border-8 rounded-full ease-in-out duration-1000 ${winner === 'O' ? 'bg-cool border-primary' : 'bg-bg border-secondary'}`}
         ></div>
-        <span className="text-text mt-2">Baby</span>
+        <span className="text-cool mt-2">Baby</span>
     </div>
 
-    {/* Circle for Tie */}
     <div className="flex flex-col items-center">
         <div
-            className={`w-12 h-12 border-4 rounded-full ${winner === 'Tie' ? 'bg-accent border-secondary' : 'bg-primary border-accent'}`}
+            className={`w-12 h-12 border-8 rounded-full ease-in-out duration-1000 ${winner === 'Tie' ? 'bg-cool border-primary' : 'bg-bg border-secondary'}`}
         ></div>
-        <span className="text-text mt-2">Tie</span>
+        <span className="text-cool mt-2">Tie</span>
     </div>
 </div>
 

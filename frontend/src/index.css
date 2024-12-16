@@ -5,19 +5,8 @@
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   --text: #ecf2f4;
-  --background: #030607;
+  --background: #1a2a32;
   --primary: #4f929c;
   --secondary: #2f626a;
   --accent: #337480;
@@ -25,6 +14,11 @@
   --error: #ff4d4d;
   --success: #00b894;
   --warning: #f1c40f;
+  --dark-gray:#1a2a32;
+    --gray:#2e4756;
+    --cool:#3cc4bf;
+    --yellow:#f2b147;
+    --light-gray:#d3d3d3;
 
 
 
@@ -61,13 +55,7 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
-button:hover {
-  border-color: var(--primary); 
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
+
 
  
   a:hover {

@@ -3,11 +3,12 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './components/Home'
 import Navbar from './components/Navbar'
 import { useEffect } from 'react'
-import './App.css'
 import {auth } from './firebaseConfig'
 import { use } from 'react'
 import Shop from './components/Shop'
 import Tictactoe from './components/games/tictactoe'
+import Snake from './components/games/snake'
+import MatchTwo from './components/games/matchtwo'
 
 function App() {
   const [user, setUser] = useState(null);
@@ -37,9 +38,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/game/1" element={<Tictactoe />} />
+        <Route path="/game/2" element={<Snake />} />
+        <Route path="/game/4" element={<MatchTwo />} />
         </Routes>
-
-
       </Router>
 
       

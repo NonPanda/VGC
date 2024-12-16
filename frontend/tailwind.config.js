@@ -19,6 +19,7 @@ module.exports = {
         "shadow": "var(--shadow)",
         "secondary-dark": "var(--secondarydark)",
         "invert-text": "var(--inverttext)",
+        "cool":"var(--cool)",
       },
     },
   },

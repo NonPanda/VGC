@@ -9,7 +9,7 @@ import { useEffect } from 'react'
 function Square({ value, onSquareClick }) {
     return (
         <button
-            className="w-28 h-28 bg-accent text-text font-semibold text-7xl px-0 py-0"
+            className="w-28 h-28 bg-accent text-text font-semibold text-7xl border-2 border-cool px-0 py-0 transition-all duration-200 ease-in-out hover:border-4"
             onClick={onSquareClick}
         >
             {value}

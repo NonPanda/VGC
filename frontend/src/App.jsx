@@ -9,6 +9,7 @@ import Shop from './components/Shop'
 import Tictactoe from './components/games/tictactoe'
 import Snake from './components/games/snake'
 import MatchTwo from './components/games/matchtwo'
+import Pong from './components/games/pong'
 
 function App() {
   const [user, setUser] = useState(null);
@@ -39,6 +40,7 @@ function App() {
         <Route path="/shop" element={<Shop />} />
         <Route path="/game/1" element={<Tictactoe />} />
         <Route path="/game/2" element={<Snake />} />
+        <Route path= "/game/3" element={<Pong />} />
         <Route path="/game/4" element={<MatchTwo />} />
         </Routes>
       </Router>

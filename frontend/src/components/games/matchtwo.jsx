@@ -20,7 +20,7 @@ export default function MatchTwo() {
     const [selected, setSelected] = useState([]);
     const [matched, setMatched] = useState([]);
     const [moves, setMoves] = useState(0);
-    const [tries, setTries] = useState(5);
+    const [tries, setTries] = useState(8);
     const [gameOver, setGameOver] = useState(false);
     const[win,setWin]=useState(false);
 

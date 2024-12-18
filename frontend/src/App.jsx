@@ -10,6 +10,8 @@ import Tictactoe from './components/games/tictactoe'
 import Snake from './components/games/snake'
 import MatchTwo from './components/games/matchtwo'
 import Pong from './components/games/pong'
+import Maze from './components/games/maze'
+import Breakout from './components/games/breakout'
 
 function App() {
   const [user, setUser] = useState(null);
@@ -42,6 +44,9 @@ function App() {
         <Route path="/game/2" element={<Snake />} />
         <Route path= "/game/3" element={<Pong />} />
         <Route path="/game/4" element={<MatchTwo />} />
+        <Route path="/game/5" element={<Maze />} />
+        <Route path="/game/6" element={<Breakout />} />
+
         </Routes>
       </Router>
 

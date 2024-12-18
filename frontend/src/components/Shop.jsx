@@ -37,6 +37,13 @@ const game = [
         price: 59.99,
         image: "../src/assets/maze.png"
     }
+    ,
+    {
+        id: 6,
+        name: "Breakout",
+        price: 59.99,
+        image: "../src/assets/breakout.png"
+    }
 
 
 ]

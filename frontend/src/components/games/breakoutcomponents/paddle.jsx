@@ -3,39 +3,40 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 
 
-
 export default function Paddle({ position, onPositionChange, controls }) {
 
-    const{up,down}=controls;
-    const [movingUp, setMovingUp] = useState(false);
-    const [movingDown, setMovingDown] = useState(false);
+    const{right,left}=controls;
+    const [movingLeft, setMovingLeft] = useState(false);
+    const [movingRight, setMovingRight] = useState(false);
     useEffect(() => {
         
         const handleKeyDown = (e) => {
-            let newY=position.y;
+            let newX=position.x;
             const key=e.key.toLowerCase();
-            if (key === up) {
-                setMovingUp(true);
+            if (key === right) {
+                setMovingRight(true);
             }
-            if(key === down){
-                setMovingDown(true);
+            if(key === left){
+                setMovingLeft(true);
             }
-            if(newY!==position.y)
+            if(newX!==position.x)
 
-            onPositionChange({...position, y: newY });
+
+            onPositionChange({...position, x: newX});
 
         };
         const handleKeyUp = (e) => {
             const key = e.key.toLowerCase();
-            if (key === up) {
-                setMovingUp(false);
+            if (key === right) {
+                setMovingRight(false);
             }
-            if(key === down){
-                setMovingDown(false);
+            if(key === left){
+                setMovingLeft(false);
             }
         };
         window.addEventListener('keydown', handleKeyDown);
         window.addEventListener('keyup', handleKeyUp);
+
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
             window.removeEventListener('keyup', handleKeyUp);
@@ -44,22 +45,22 @@ export default function Paddle({ position, onPositionChange, controls }) {
     });
     useEffect(()=>{
         const interval=setInterval(()=>{
-            let newY=position.y;
-            if(movingUp){
-               newY=Math.max(0,position.y-8);
+            let newX=position.x;
+            if(movingLeft){
+               newX=Math.max(0,position.x-8);
             }
-            if(movingDown){
-                newY=Math.min(450,position.y+8);
+            if(movingRight){
+                newX=Math.min(1300,position.x+8);
             }
-            if(newY!==position.y)
-            onPositionChange({...position,y:newY});
-        },10);
+            if(newX!==position.x)
+            onPositionChange({...position,x:newX});
+        },8);
        
     return ()=>{
         clearInterval(interval);
     }
     }
-    ,[movingUp,movingDown,position,onPositionChange]);
+    ,[movingLeft,movingRight,position,onPositionChange]);
 
 
 
@@ -67,8 +68,8 @@ export default function Paddle({ position, onPositionChange, controls }) {
         <div
             style={{
                 position: 'absolute',
-                width: '20px',
-                height: '100px',
+                width: '100px',
+                height: '20px',
                 backgroundColor: 'white',
                 left: position.x,
                 top: position.y,

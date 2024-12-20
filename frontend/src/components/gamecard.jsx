@@ -8,12 +8,14 @@ export default function Gamecard({ game, isPurchased, isShop }) {
     const user = auth.currentUser?.uid;
 
     const handlePurchase = async () => {
-        if (isPurchased) return; // Prevent purchasing again
+        if (isPurchased) return; 
         try {
             const response = await axios.post('http://localhost:5000/api/purchase', {
                 userId: user,
                 gameId: game.id,
+
             });
+            //refresh
             console.log(response);
         } catch (error) {
             console.error(error);
@@ -42,12 +44,10 @@ export default function Gamecard({ game, isPurchased, isShop }) {
                         Purchased
                     </button>
                 ) : isPurchased?(
-                    <button
-                        onClick={handlePurchase}
-                        className="mt-2 bg-secondary text-text px-3 py-1 rounded-lg"
-                    >
+                    <Link to={`/game/${game.id}`} className="mt-2 bg-cool text-text px-3 py-1 rounded-lg hover:text-accent hover:font-do">
                         Play
-                    </button>
+                    </Link>
+            
                 )
                 : (
                     <button

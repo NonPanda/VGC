@@ -3,7 +3,7 @@ import React from 'react';
 export default function Block({position, width, height }) {
   return (
     <div
-      className="absolute bg-red-500 border border-white m-0 p-0"
+      className="absolute bg-primary border-2 border-secondary"
       style={{
 
         left: position.x,

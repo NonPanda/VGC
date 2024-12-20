@@ -1,38 +1,50 @@
 import React, { useEffect, useState } from 'react';
 
 export default function Ball({ position, onPositionChange, p1, blocks, setBlocks, blockWidth, blockHeight }) {
-    const [velocity, setVelocity] = useState({ x: 2, y: 2 });
+    const [velocity, setVelocity] = useState({ x: 1, y: 2 });
     const [speed, setSpeed] = useState(2);
     const [victor, setVictor] = useState(false);
+    const [start, setStart] = useState(false);
 
     const checkCollision = (paddlePosition, position) => {
-        const paddleCenter = paddlePosition.x + 50;
+        const paddleCenter = paddlePosition.x + 100;
+        const ballCenter = position.x + 20;
+        const offset = ballCenter - paddleCenter;
+    
         if (
-            position.x <= paddlePosition.x + 100 &&
-            position.x >= paddlePosition.x &&
+            position.x <= paddlePosition.x + 200 &&
+            position.x + 30 >= paddlePosition.x &&
             position.y <= paddlePosition.y + 20 &&
-            position.y >= paddlePosition.y
+            position.y + 30 >= paddlePosition.y
         ) {
-            const offset = position.x - paddleCenter;
-            return { collision: true, offset };
+            const normalizedOffset = offset / 100;
+            const angle = normalizedOffset * (Math.PI / 4);
+            return { collision: true, angle };
         }
-        return { collision: false, offset: 0 };
+        return { collision: false, angle: 0 };
     };
+    
 
     const checkBlockCollision = (position) => {
         for (let i = 0; i < blocks.length; i++) {
             const block = blocks[i];
             if (
-                position.x + 20 >= block.x && 
+                position.x + 30 >= block.x &&
                 position.x <= block.x + blockWidth &&
-                position.y + 20 >= block.y && 
+                position.y + 30 >= block.y &&
                 position.y <= block.y + blockHeight 
             ) {
                 setBlocks((prevBlocks) => prevBlocks.filter((_, index) => index !== i));
+                if(blocks.length === 1) {
 
-                const hitFromTop = position.y + 20 - velocity.y * speed <= block.y;
+                    setSpeed(0);
+                    setVelocity({ x: 0, y: 0 });
+                    setVictor('p1');
+                    return;
+                }                   
+                const hitFromTop = position.y + 30 - velocity.y * speed <= block.y;
                 const hitFromBottom = position.y - velocity.y * speed >= block.y + blockHeight;
-                const hitFromLeft = position.x + 20 - velocity.x * speed <= block.x;
+                const hitFromLeft = position.x + 30 - velocity.x * speed <= block.x;
                 const hitFromRight = position.x - velocity.x * speed >= block.x + blockWidth;
 
                 if (hitFromTop || hitFromBottom) {
@@ -48,42 +60,51 @@ export default function Ball({ position, onPositionChange, p1, blocks, setBlocks
     const moveBall = () => {
         let newX = position.x + velocity.x * speed;
         let newY = position.y + velocity.y * speed;
-
-        if (newX < 0 || newX > 1400) {
-            setVelocity({ ...velocity, x: -velocity.x });
-        }
-        if (newY > 570) {
-            resetBall();
-            return;
+    
+        if (newX < 1 || newX > 1370) {
+            setVelocity((prev) => ({ ...prev, x: -prev.x }));
         }
         if (newY < 0) {
-            setVelocity({ ...velocity, y: -velocity.y });
+            setVelocity((prev) => ({ ...prev, y: -prev.y }));
         }
-
+    
+        if (newY > 550) { 
+            setVictor("p2");
+            return;
+        }
+    
         const collision = checkCollision(p1, { x: newX, y: newY });
         if (collision.collision) {
-            const angle = collision.offset / 50;
-            const newVelocity = Math.min(3, angle * speed);
-            setVelocity({ x: newVelocity, y: -Math.abs(velocity.y) });
-            setSpeed(Math.min(speed + 0.5), 4);
+            const newSpeed = Math.min(speed + 0.2, 3); 
+            const newVelocityX = Math.sin(collision.angle) * newSpeed;
+            const newVelocityY = -Math.abs(Math.cos(collision.angle)) * newSpeed; 
+            setVelocity({ x: newVelocityX, y: newVelocityY });
+            setSpeed(newSpeed);
         }
-
+    
         const newVelocity = checkBlockCollision({ x: newX, y: newY });
         if (newVelocity) {
             setVelocity(newVelocity);
         }
-
+    
         onPositionChange({ x: newX, y: newY });
     };
 
     const resetBall = () => {
-        setVictor(true);
-        onPositionChange({ x: 650, y: 225 });
-        setVelocity({ x: 2, y: 2 });
+        setStart(true);
+        onPositionChange({ x: 650, y: 300 });
+        setVelocity({ x: 1, y: 2 });
         setSpeed(2);
-        setTimeout(() => {
-            setVictor(false);
-        }, 1000);
+        setBlocks(() => {
+            const initialBlocks = [];
+            for (let row = 0; row < 6; row++) {
+                for (let col = 0; col < 5; col++) {
+                    initialBlocks.push({ x: col * blockWidth, y: row * blockHeight, id: `${row}-${col}` });
+                }
+            }
+            return initialBlocks;
+        });
+        setVictor(false);
     };
 
     useEffect(() => {
@@ -93,12 +114,12 @@ export default function Ball({ position, onPositionChange, p1, blocks, setBlocks
         return () => {
             clearInterval(interval);
         };
-    }, [position, velocity, speed, victor]);
+    }, [position, velocity, speed, victor, start]);
 
     return (
         <>
             <div
-                className={`absolute w-5 h-5 bg-white ${!victor && (velocity.x !== 0 || velocity.y !== 0) ? 'shadow-[0_0_10px_rgba(255,255,255,0.5)]' : ''}`}
+                className={`absolute w-[30px] h-[30px] bg-white ${!victor && (velocity.x !== 0 || velocity.y !== 0) ? 'shadow-[0_0_6px_rgba(255,255,255,0.5)]' : ''}`} // Updated to w-10 h-10
                 style={{
                     left: position.x,
                     top: position.y,
@@ -108,8 +129,24 @@ export default function Ball({ position, onPositionChange, p1, blocks, setBlocks
                 }}
             />
             {victor && (
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl text-white bg-black p-2.5 rounded">
-                    {victor === 'p1' ? 'Player 1 Scores!' : 'Player 2 Scores!'}
+                <div className={`mt-5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl text-white bg-black p-2.5 rounded ${victor === 'p1' ? 'bg-cool' : 'bg-red-500'}`}>
+                    {victor === 'p1' ? 'You win!' : 'You lose! '}
+                    <button 
+                        onClick={resetBall} 
+                        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl w-36 text-white bg-secondary p-2.5 rounded"
+                        style={{ display: 'none' }}
+                        ref={(button) => {
+                            if (button) {
+                                setTimeout(() => {
+                                    
+                                    setStart(false);
+                                    button.style.display = 'block';
+                                }, 2000);
+                            }
+                        }}
+                    >
+                        Try Again?
+                    </button>
                 </div>
             )}
         </>

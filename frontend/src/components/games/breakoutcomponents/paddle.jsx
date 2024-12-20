@@ -50,11 +50,11 @@ export default function Paddle({ position, onPositionChange, controls }) {
                newX=Math.max(0,position.x-8);
             }
             if(movingRight){
-                newX=Math.min(1300,position.x+8);
+                newX=Math.min(1200,position.x+8);
             }
             if(newX!==position.x)
             onPositionChange({...position,x:newX});
-        },8);
+        },5);
        
     return ()=>{
         clearInterval(interval);
@@ -68,8 +68,8 @@ export default function Paddle({ position, onPositionChange, controls }) {
         <div
             style={{
                 position: 'absolute',
-                width: '100px',
-                height: '20px',
+                width: '200px',
+                height: '30px',
                 backgroundColor: 'white',
                 left: position.x,
                 top: position.y,

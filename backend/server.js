@@ -3,16 +3,20 @@ const mongoose = require('mongoose');
 const app = express();
 const dotenv = require('dotenv');
 const cors = require('cors');
+const Purchase = require('./models/Purchase');
+const User = require('./models/Purchase');
 
 
 
 dotenv.config();
 
-//mongo connection
 const PORT = process.env.PORT || 5000;
 app.use(express.json());
-app.use(cors());
-
+app.use(cors({
+    origin: 'http://localhost:5173',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+    credentials: true, 
+}));
 
 mongoose.connect(process.env.MONGO_URI,{
     useNewUrlParser: true,
@@ -22,8 +26,23 @@ mongoose.connect(process.env.MONGO_URI,{
 
 
 app.get('/', (req, res) => {
-    res.send('MERN Games API is Running!');
+    res.send('Games API is Running!');
 });
 
+app.post('/api/purchase',async(req,res)=>{
+    const {userId,gameId}=req.body;
+    if (!userId||!gameId) {
+        return res.status(400).send({ error: 'userId and gameId are required.' });
+    }
+    const purchase=new Purchase({
+        userId,
+        gameId,
+        date:Date.now()
+    });
+
+    await purchase.save();
+    res.send(purchase);
+}
+)
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

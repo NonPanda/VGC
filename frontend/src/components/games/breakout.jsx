@@ -10,12 +10,13 @@ export default function Breakout() {
     const canvasWidth = 1399;
     const canvasHeight = 550;
     const [paddlePosition, setPaddlePosition] = useState({ x: 650, y: 550 });
-    const [ballPosition, setBallPosition] = useState({ x: 650, y: 225 });
-    const blockWidth = 100;
+    const [ballPosition, setBallPosition] = useState({ x: 650, y: 300 });
+    const [timer, setTimer] = useState(0);
+    const blockWidth = 280;
     const blockHeight = 40;
 
-    const rows = 6;
-    const columns = 14;
+    const rows = 7;
+    const columns = 5;
     const [blocks, setBlocks] = useState(() => {
         const initialBlocks = [];
         for (let row = 0; row < rows; row++) {
@@ -30,7 +31,7 @@ export default function Breakout() {
         
         <div className="flex flex-col items-center mt-5 bg-gray-800">
             <div className="relative">
-                <canvas width={canvasWidth} height={canvasHeight} className="border-2 border-white bg-gray-900"></canvas>
+                <canvas width={canvasWidth} height={canvasHeight} className=" bg-gray-900"></canvas>
                 <Paddle position={paddlePosition} onPositionChange={setPaddlePosition} controls={{right:'d', left:'a'}} />
                 <Ball position={ballPosition} onPositionChange={setBallPosition} p1={paddlePosition} blocks={blocks} setBlocks={setBlocks} blockWidth={blockWidth} blockHeight={blockHeight}/>
                 {blocks.map((block, index) => (

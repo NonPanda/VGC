@@ -3,9 +3,8 @@ const mongoose = require('mongoose');
 const app = express();
 const dotenv = require('dotenv');
 const cors = require('cors');
-const Purchase = require('./models/Purchase');
-const User = require('./models/Purchase');
-
+const {Purchase }= require('./models/Purchase');
+const {User} = require('./models/Purchase');
 
 
 dotenv.config();
@@ -29,20 +28,32 @@ app.get('/', (req, res) => {
     res.send('Games API is Running!');
 });
 
-app.post('/api/purchase',async(req,res)=>{
-    const {userId,gameId}=req.body;
-    if (!userId||!gameId) {
+app.post('/api/purchase', async (req, res) => {
+    const { userId, gameId } = req.body;
+    if (!userId || !gameId) {
         return res.status(400).send({ error: 'userId and gameId are required.' });
     }
-    const purchase=new Purchase({
-        userId,
-        gameId,
-        date:Date.now()
-    });
-
+    const purchase = new Purchase({ userId, gameId });
     await purchase.save();
     res.send(purchase);
 }
-)
+);
+
+app.get('/api/games/purchased', async (req, res) => {
+    const { userId } = req.query;
+    if (!userId) {
+        return res.status(400).send({ error: 'userId is required.' });
+    }
+
+    try {
+        const purchases = await Purchase.find({ userId });
+        const gameIds = purchases.map(purchase => purchase.gameId);
+        res.send(gameIds);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ error: 'Failed to fetch purchased games' });
+    }
+});
+
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

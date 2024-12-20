@@ -12,6 +12,7 @@ import MatchTwo from './components/games/matchtwo'
 import Pong from './components/games/pong'
 import Maze from './components/games/maze'
 import Breakout from './components/games/breakout'
+import Games from './components/GamesPurchased'
 
 function App() {
   const [user, setUser] = useState(null);
@@ -29,8 +30,6 @@ function App() {
 
   }, []);
 
-  console.log(user);
-
 
 
   return (
@@ -46,6 +45,8 @@ function App() {
         <Route path="/game/4" element={<MatchTwo />} />
         <Route path="/game/5" element={<Maze />} />
         <Route path="/game/6" element={<Breakout />} />
+        <Route path="/games" element={<Games />} />
+      
 
         </Routes>
       </Router>

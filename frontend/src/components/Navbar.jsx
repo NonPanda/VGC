@@ -2,6 +2,7 @@ import React from "react";
 import { auth, provider, signInWithPopup } from "../firebaseConfig";
 import {signOut} from "firebase/auth";
 import {useState,useEffect } from "react";
+import { GoogleAuthProvider } from "firebase/auth";
 
 
 export default function Navbar({ user }) {
@@ -9,10 +10,15 @@ export default function Navbar({ user }) {
 
  const handleSignIn = async () => {
      try {
+        const provider = new GoogleAuthProvider();
+        provider.setCustomParameters({
+            prompt: 'select_account'
+        });
          const result = await signInWithPopup(auth, provider); 
          const credential = GoogleAuthProvider.credentialFromResult(result);
          const token = credential.accessToken;
          const loggedInUser = result.user;
+         console.log
          console.log("User signed in:", loggedInUser);
      } catch (error) {
          console.error("Error during sign-in:", error.message);
@@ -31,7 +37,7 @@ export default function Navbar({ user }) {
     const togglenavbar = () => {
         isShow(!show);
     }
- 
+    
 
     
 

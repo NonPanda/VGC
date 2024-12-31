@@ -3,6 +3,7 @@ import { getAuth } from 'firebase/auth';
 import axios from 'axios';
 import Gamecard from './gamecard';
 import games from './games';
+import Stars from './stars';
 
 export default function Shop() {
     const auth = getAuth();

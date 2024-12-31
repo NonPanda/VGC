@@ -50,22 +50,15 @@ export default function Gamecard({ game, isPurchased, isShop }) {
             
                 )
                 : (
-                    <button
+                    <Link
                         onClick={handlePurchase}
-                        className="mt-2 bg-secondary text-text px-3 py-1 rounded-lg"
+                        className="text-text mt-4 duration-1000 hover:font-extrabold"
                     >
-                        Buy
-                    </button>
+                        Purchase Game
+                    </Link>
                 )
             }
-                <Link
-                    to={`/game/${game.id}`}
-                    className={`text-text mt-4 duration-1000 hover:font-extrabold ${
-                        isShop && isPurchased ? 'pointer-events-none text-gray-400' : ''
-                    }`}
-                >
-                    View Game
-                </Link>
+               
             </div>
         </div>
     );

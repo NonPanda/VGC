@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
-export default function Ball({ position, onPositionChange, p1, blocks, setBlocks, blockWidth, blockHeight }) {
-    const [velocity, setVelocity] = useState({ x: 1, y: 2 });
+export default function Ball({ position, onPositionChange, p1, blocks, setBlocks, blockWidth, blockHeight, setTimer }) {
+    const [velocity, setVelocity] = useState({ x: 0, y: 0 });
     const [speed, setSpeed] = useState(2);
     const [victor, setVictor] = useState(false);
     const [start, setStart] = useState(false);
+
 
     const checkCollision = (paddlePosition, position) => {
         const paddleCenter = paddlePosition.x + 100;
@@ -104,8 +105,19 @@ export default function Ball({ position, onPositionChange, p1, blocks, setBlocks
             }
             return initialBlocks;
         });
+
         setVictor(false);
+        setTimer(0);
     };
+
+    useEffect(() => {
+        if (start && !victor) { 
+            const interval = setInterval(() => {
+                setTimer((prev) => prev + 1);
+            }, 1000);
+            return () => clearInterval(interval);
+        }
+    }, [start, victor, setTimer]);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -139,7 +151,6 @@ export default function Ball({ position, onPositionChange, p1, blocks, setBlocks
                             if (button) {
                                 setTimeout(() => {
                                     
-                                    setStart(false);
                                     button.style.display = 'block';
                                 }, 2000);
                             }
@@ -148,6 +159,19 @@ export default function Ball({ position, onPositionChange, p1, blocks, setBlocks
                         Try Again?
                     </button>
                 </div>
+
+            )}
+            {start=='' &&
+
+             (
+                <button
+                onClick={resetBall}
+
+                 className="absolute top-[70%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl w-36 text-white bg-secondary p-2.5 rounded">
+                    Start
+                </button>
+
+
             )}
         </>
     );

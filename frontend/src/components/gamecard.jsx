@@ -15,8 +15,7 @@ export default function Gamecard({ game, isPurchased, isShop }) {
                 gameId: game.id,
 
             });
-            //refresh
-            console.log(response);
+            window.location.reload();
         } catch (error) {
             console.error(error);
         }

@@ -4,7 +4,8 @@ const app = express();
 const dotenv = require('dotenv');
 const cors = require('cors');
 const {Purchase }= require('./models/Purchase');
-const {User} = require('./models/Purchase');
+// const {User} = require('./models/Purchase');
+const {Highscore} = require('./models/Purchase');
 
 
 dotenv.config();
@@ -25,7 +26,7 @@ mongoose.connect(process.env.MONGO_URI,{
 
 
 app.get('/', (req, res) => {
-    res.send('Games API is Running!');
+    res.send('games api running');
 });
 
 app.post('/api/purchase', async (req, res) => {
@@ -54,6 +55,69 @@ app.get('/api/games/purchased', async (req, res) => {
         res.status(500).send({ error: 'Failed to fetch purchased games' });
     }
 });
+
+app.post('/api/highscores', async (req, res) => {
+    const { userId,gameId,score } = req.body;
+    if (!userId || !gameId || score===undefined) {
+        return res.status(400).send({ error: 'userId, gameId and score are required.' });
+    }
+    try{
+        let highscore = await Highscore.findOne({userId});
+        if(!highscore){
+            highscore = new Highscore({userId,scores:[{gameId,highscore:score}]});
+        }
+        else{
+            let game = highscore.scores.find(game => game.gameId === gameId);
+            if(!game){
+                highscore.scores.push({gameId,highscore:score});
+            }
+            else{
+                game.highscore = Math.max(game.highscore, score);
+            }
+        }
+        await highscore.save();
+        res.send(highscore);
+    }catch(error){
+        console.error(error);
+        res.status(500).send({ error: 'Failed to save highscore' });
+
+    }
+}
+);
+
+app.get('/api/highscores',async(req,res)=>{
+    const {userId,gameId}=req.query;
+    if(!userId||!gameId)
+        return res.status(400).send({error:'userId is required!'});
+    else
+    {
+        try{
+            const highscoresEntry=await Highscore.findOne({userId});
+            if(!highscoresEntry){
+                
+
+               highscoresEntry=new Highscore({userId,scores:[
+                    {
+                        gameId,
+                        highscore:0
+                    }
+                ]});
+                await highscoresEntry.save();
+
+            }
+            res.send(highscoresEntry);
+        }
+        catch(error){
+            console.log(error);
+            res.status(500).send({error:'failed to get highscore'});
+        }
+    }
+
+
+});
+
+
+
 
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

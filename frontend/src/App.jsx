@@ -40,7 +40,7 @@ function App() {
         <Route path="/game/1" element={<Tictactoe />} />
         <Route path="/game/2" element={<Snake />} />
         <Route path= "/game/3" element={<Pong />} />
-        <Route path="/game/4" element={<MatchTwo />} />
+        <Route path="/game/4" element={<MatchTwo user={user} />} />
         <Route path="/game/5" element={<Maze />} />
         <Route path="/game/6" element={<Breakout />} />
         <Route path="/games" element={<Games />} />

@@ -68,11 +68,12 @@ app.post('/api/highscores', async (req, res) => {
         }
         else{
             let game = highscore.scores.find(game => game.gameId === gameId);
+
             if(!game){
                 highscore.scores.push({gameId,highscore:score});
             }
             else{
-                game.highscore = Math.max(game.highscore, score);
+                game.highscore = score;
             }
         }
         await highscore.save();
@@ -105,8 +106,16 @@ app.get('/api/highscores',async(req,res)=>{
                 await highscoresEntry.save();
 
             }
-            res.send(highscoresEntry);
-        }
+            else{
+                let game=highscoresEntry.scores.find(game=>game.gameId===gameId);
+                if(!game){
+                    highscoresEntry.scores.push({gameId,highscore:0});
+                }
+
+            }
+
+            const gameScore=highscoresEntry.scores.find((game)=>game.gameId===gameId);
+            res.send({userId,gameId,highscore:gameScore.highscore });}
         catch(error){
             console.log(error);
             res.status(500).send({error:'failed to get highscore'});

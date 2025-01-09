@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-export default function Ball({ position, onPositionChange, p1, blocks, setBlocks, blockWidth, blockHeight, setTimer }) {
+
+export default function Ball({ position, onPositionChange, p1, blocks, setBlocks, blockWidth, blockHeight, setTimer,
+    setHighscore, highscore, userId, timer
+ }) {
     const [velocity, setVelocity] = useState({ x: 0, y: 0 });
     const [speed, setSpeed] = useState(2);
     const [victor, setVictor] = useState(false);
@@ -41,6 +45,30 @@ export default function Ball({ position, onPositionChange, p1, blocks, setBlocks
                     setSpeed(0);
                     setVelocity({ x: 0, y: 0 });
                     setVictor('p1');
+                    const saveHighscore = async () => {
+                        const newScore = timer;
+                        console.log('New Score:', newScore);
+                        console.log('Highscore:', highscore);
+                        console.log('User ID:', userId);
+                        console.log('Game ID:', '6');
+                        if (newScore < highscore|| highscore === null||highscore===0) {
+                            try {
+                                const response = await axios.post('http://localhost:5000/api/highscores', {
+                            userId,
+                            gameId: '6',
+                            score: newScore,
+                        });
+                                console.log('Highscore saved:', response.data);  
+                                setHighscore(newScore); 
+                            } catch (error) {
+                                console.error('Failed to save highscore:', error);
+                            }
+                        }
+                        
+                    };
+            
+                    saveHighscore();
+
                     return;
                 }                   
                 const hitFromTop = position.y + 30 - velocity.y * speed <= block.y;
@@ -92,14 +120,15 @@ export default function Ball({ position, onPositionChange, p1, blocks, setBlocks
     };
 
     const resetBall = () => {
+
         setStart(true);
         onPositionChange({ x: 650, y: 300 });
         setVelocity({ x: 1, y: 2 });
         setSpeed(2);
         setBlocks(() => {
             const initialBlocks = [];
-            for (let row = 0; row < 6; row++) {
-                for (let col = 0; col < 5; col++) {
+            for (let row = 0; row < 1; row++) {
+                for (let col = 0; col < 1; col++) {
                     initialBlocks.push({ x: col * blockWidth, y: row * blockHeight, id: `${row}-${col}` });
                 }
             }

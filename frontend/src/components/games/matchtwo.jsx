@@ -42,13 +42,13 @@ export default function MatchTwo( {user} ) {
                     const response = await axios.get('http://localhost:5000/api/highscores', {
                         params: {
                             userId: user.uid,
-                            gameId: '5',
+                            gameId: '4',
                         },
                     });
                     console.log('API Response:', response.data);
     
-                    if (response.data && response.data.scores && response.data.scores.length > 0) {
-                        setHighscore(response.data.scores[0].highscore);
+                    if (response.data && response.data.highscore !== undefined) {
+                        setHighscore(response.data.highscore);
                     } else {
                         setHighscore(0);
                     }
@@ -98,16 +98,16 @@ export default function MatchTwo( {user} ) {
             setWin(true);
     
             const saveHighscore = async () => {
-                const newScore = moves * -1; 
+                const newScore = moves;
                 console.log('New Score:', newScore);
                 console.log('Highscore:', highscore);
                 console.log('User ID:', userId);
-                console.log('Game ID:', '5');
-                if (newScore > highscore|| highscore === null) {
+                console.log('Game ID:', '4');
+                if (newScore < highscore|| highscore === null||highscore===0) {
                     try {
                         const response = await axios.post('http://localhost:5000/api/highscores', {
                     userId,
-                    gameId: '5',
+                    gameId: '4',
                     score: newScore,
                 });
                         console.log('Highscore saved:', response.data);  // Log response to verify success
@@ -150,7 +150,7 @@ export default function MatchTwo( {user} ) {
             <div className="flex items-center justify-center gap-10">
                 <h2 className="text-3xl mb-2 font-bold text-text">Tries: {tries}</h2>
                 <h2 className="text-3xl mb-2 font-bold text-text">Moves: {moves}</h2>
-                <h2 className="text-3xl mb-2 font-bold text-text">Highscore: {highscore !== null ? -highscore : 'N/A'}</h2>
+                <h2 className="text-3xl mb-2 font-bold text-text">Highscore: {highscore !== null ? highscore : 'N/A'}</h2>
  </div>
             <div className={`flex items-center justify-center mb-4 transition-opacity duration-700 ${gameOver ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
                 <h2 className="text-3xl mb-4 font-bold text-text">{win ? 'You Win' : 'Game Over'}</h2>

@@ -45,6 +45,7 @@ export default function Ball({ position, onPositionChange, p1, blocks, setBlocks
                     setSpeed(0);
                     setVelocity({ x: 0, y: 0 });
                     setVictor('p1');
+                    console.log(timer);
                     const saveHighscore = async () => {
                         const newScore = timer;
                         console.log('New Score:', newScore);

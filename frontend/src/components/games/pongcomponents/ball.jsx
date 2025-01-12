@@ -2,7 +2,7 @@ import React, { useEffect,useState,useRef} from 'react';
 
 
 
-export default function Ball({ position, onPositionChange, p1, p2, scoreChange }) {
+export default function Ball({ position, onPositionChange, p1, p2, scoreChange, setWinner }) {
     
     const[velocity,setVelocity]=useState({x:2,y:2});
     const [speed, setSpeed] = useState(2);
@@ -38,6 +38,8 @@ export default function Ball({ position, onPositionChange, p1, p2, scoreChange }
         if (newX < 0) {
             scoreChange((prevScores) => ({ ...prevScores, p2: prevScores.p2 + 1 }));
             resetBall('p2');
+            setWinner('p2');
+            
             return;
 
 
@@ -45,6 +47,7 @@ export default function Ball({ position, onPositionChange, p1, p2, scoreChange }
         if (newX > 1280) {
             scoreChange((prevScores) => ({ ...prevScores, p1: prevScores.p1 + 1 }));
             resetBall('p1');
+            setWinner('p1');
             return;
 
         }

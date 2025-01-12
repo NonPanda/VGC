@@ -21,7 +21,6 @@ export default function MazeGame({user}) {
 
 
   useEffect(() => {
-    // Get current user and fetch highscore
     if (user) {
       setUserId(user.uid);
 

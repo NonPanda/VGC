@@ -7,7 +7,6 @@ import Block from './breakoutcomponents/block';
 import { useRef } from 'react';
 import {auth} from '../../firebaseConfig';
 import axios from 'axios';
-
 export default function Breakout({user}) {
 
     const canvasWidth = 1399;
@@ -80,7 +79,7 @@ export default function Breakout({user}) {
                 <canvas width={canvasWidth} height={canvasHeight} className=" bg-gray-900"></canvas>
                 <Paddle position={paddlePosition} onPositionChange={setPaddlePosition} controls={{right:'d', left:'a'}} />
                 <Ball position={ballPosition} onPositionChange={setBallPosition} p1={paddlePosition} blocks={blocks} setBlocks={setBlocks} blockWidth={blockWidth} blockHeight={blockHeight} 
-                 setTimer={setTimer} setHighscore={setHighscore} highscore={highscore} userId={userId} gameStatus={gameStatus} setGameStatus={setGameStatus}
+                 setTimer={setTimer} setHighscore={setHighscore} highscore={highscore} userId={userId} gameStatus={gameStatus} setGameStatus={setGameStatus} timer={timer}
 
                 />
                 {blocks.map((block, index) => (

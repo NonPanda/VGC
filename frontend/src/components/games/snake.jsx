@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 
-export default function Snake() {
+
+export default function Snake({user}) {
     const canvasWidth=400;
     const canvasHeight=400;
     const snakeSize = 20;
@@ -8,30 +10,58 @@ export default function Snake() {
     const foodColor = '#337480';
     const foodSize = 20;
 
-    const [snake, setSnake] = useState([
-        { x: 200, y: 200 },
-        { x: 180, y: 200 },
-        { x: 160, y: 200 },
-        { x: 140, y: 200 },
-        { x: 120, y: 200 }
-    ]);
-    const [food, setFood] = useState({ x: 0, y: 0 });
-    const [direction, setDirection] = useState('RIGHT');
+    const [snake, setSnake]=useState([{x:200, y:200 },{x:180, y:200 },{x:160, y:200 },{x:140, y:200 },{x:120, y:200 }]);
+    const [food, setFood]=useState({x:0,y:0});
+    const [direction, setDirection]=useState('RIGHT');
     const [score, setScore] = useState(0);
     const [gameOver, setGameOver] = useState(null);
     const [snakeSpeed, setSnakeSpeed] = useState(100);
+    const [highscore, setHighscore] = useState(0);
+    const [userId, setUserId] = useState(null);
+
 
     const directionRef = useRef(direction);
     const snakeRef = useRef(snake);
     const foodRef = useRef(food);
     const speedRef = useRef(snakeSpeed);
+    useEffect(() => {
+        if (user) {
+          setUserId(user.uid);
     
+          const fetchHighscore = async () => {
+            try {
+              const response = await axios.get("http://localhost:5000/api/highscores", {
+                params: {
+                  userId: user.uid,
+                  gameId: "2",
+                },
+              });
+              console.log("Highscore Fetch Response:", response.data);
+    
+              if (response.data && response.data.highscore !== undefined) {
+    
+                setHighscore(response.data.highscore);
+    
+              } else {
+                setHighscore(null);
+              }
+            } catch (error) {
+              console.error("Failed to fetch highscore:", error);
+            }
+          };
+    
+          fetchHighscore();
+        }
+        else {
+            console.warn('User is not logged in!');
+        }
+      }, [user]);
+
     const createFood = () => {
         let x = Math.floor(Math.random() * (canvasWidth / snakeSize)) * snakeSize;
         let y = Math.floor(Math.random() * (canvasHeight / snakeSize)) * snakeSize;
         setFood({ x, y });
     }; 
-    //on page reload create food
     useEffect(() => {
         createFood();
     }, []);
@@ -41,6 +71,8 @@ export default function Snake() {
     setGameOver(false);
     }
 };
+
+
         
 
     useEffect(() => {
@@ -54,7 +86,7 @@ export default function Snake() {
             return;
         }
         let newSnake = [...snakeRef.current];
-        let head = { x: newSnake[0].x, y: newSnake[0].y };
+        let head = {x:newSnake[0].x, y:newSnake[0].y };
 
         if (directionRef.current === 'RIGHT') {
             head.x += snakeSize;
@@ -75,21 +107,40 @@ export default function Snake() {
         ) {
 
             setGameOver(true);
+            
             return;
         }
 
-        if (head.x === foodRef.current.x && head.y === foodRef.current.y) {
+        if (head.x===foodRef.current.x&&head.y===foodRef.current.y){
             newSnake.unshift(head);
-            setScore(prevScore => prevScore + 1);
-            createFood();
-            if(snakeSpeed > 30)
-            setSnakeSpeed(prevSpeed => prevSpeed-3);
+            const score1=score+1;
+            setScore(score1);
         
-            
-        } else {
+            if (score1>highscore){
+                setHighscore(score1);
+        
+                const postHighscore=async()=>{
+                    try{
+                        const response=await axios.post('http://localhost:5000/api/highscores',{
+                            userId,
+                            gameId:'2',
+                            score:score1,
+                        });
+                        console.log('Highscore Updated:',score1);
+                    }catch(error){
+                        console.error('Failed to update highscore:',error);
+                    }
+                };
+                postHighscore();
+            }
+        
+            createFood();
+            if (snakeSpeed>30)setSnakeSpeed(prevSpeed=>prevSpeed-3);
+        }else{
             newSnake.pop();
             newSnake.unshift(head);
         }
+        
 
         setSnake(newSnake);
         snakeRef.current = newSnake;
@@ -98,15 +149,27 @@ export default function Snake() {
         
 
     const changeDirection = (e) => {
+        
         const newDirection = (() => {
+            if(gameOver==null){
+                initGame();
+            }
             switch (e.key) {
                 case 'ArrowUp':
+                case 'w':
+                case 'W':
                     return directionRef.current !== 'DOWN' ? 'UP' : directionRef.current;
                 case 'ArrowDown':
+                case 's':
+                case 'S':
                     return directionRef.current !== 'UP' ? 'DOWN' : directionRef.current;
                 case 'ArrowLeft':
+                case 'a':
+                case 'A':
                     return directionRef.current !== 'RIGHT' ? 'LEFT' : directionRef.current;
                 case 'ArrowRight':
+                case 'd':
+                case 'D':
                     return directionRef.current !== 'LEFT' ? 'RIGHT' : directionRef.current;
                 default:
                     return directionRef.current;
@@ -138,9 +201,12 @@ export default function Snake() {
         
     }, [snakeSpeed,gameOver]);
 
+    
+
     return (
         <div className="flex flex-col items-center justify-center">
             <h2 className="text-4xl mb-4 mt-6 font-bold text-text">Score: {score}</h2>
+            <h2 className="text-4xl mb-4 font-bold text-text">Highscore: {highscore}</h2>
             <div className={`flex items-center justify-center mb-4 ${gameOver ? '' : 'invisible'}`}>
             <h2 className="text-4xl mb-4 font-bold text-text">Game Over</h2>
             <button className="bg-accent text-text font-bold px-4 py-2 rounded-md ml-4" onClick={() => window.location.reload()}>Restart</button>

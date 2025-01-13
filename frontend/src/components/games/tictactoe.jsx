@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react'
 import { useEffect } from 'react'
+import axios from 'axios'
 
 
 
@@ -17,7 +18,7 @@ function Square({ value, onSquareClick }) {
     );
 }
 
-export default function Tictactoe() {
+export default function Tictactoe({user}) {
     const lines = [
         [0, 1, 2],
         [3, 4, 5],
@@ -32,6 +33,46 @@ export default function Tictactoe() {
     const [squares, setSquares] = React.useState(Array(9).fill(null));
     const [winner, setWinner] = React.useState(null);
     const [wins, setWins] = React.useState([0, 0]);
+    const [userId, setUserId] = useState(null);
+    const [streak, setStreak] = useState(0);
+    const [highscore, setHighscore] = useState(0);
+
+    useEffect(() => {
+        if (user) {
+          setUserId(user.uid);
+    
+          const fetchHighscore = async () => {
+            try {
+              const response = await axios.get("http://localhost:5000/api/highscores", {
+                params: {
+                  userId: user.uid,
+                  gameId: "1",
+                },
+              });
+              console.log("Highscore Fetch Response:", response.data);
+    
+              if (response.data && response.data.highscore !== undefined) {
+    
+                setHighscore(response.data.highscore);
+    
+              } else {
+                setHighscore(null);
+              }
+            } catch (error) {
+              console.error("Failed to fetch highscore:", error);
+            }
+          };
+    
+          fetchHighscore();
+        }
+        else {
+            console.warn('User is not logged in!');
+        }
+      }, [user]);
+
+
+
+
 
 
     function handleClick(i) {
@@ -82,8 +123,31 @@ export default function Tictactoe() {
     function updateWins(player) {
         if (player === 'X') {
             setWins([wins[0] + 1, wins[1]]);
+            setStreak((prevStreak) => {
+                const newStreak = prevStreak + 1;
+                if (newStreak > (highscore || 0)) {
+                const postHighscore = async () => {
+                    try {
+                        const response = await axios.post('http://localhost:5000/api/highscores', {
+                            userId,
+                            gameId: '1',
+                            score: newStreak,
+                        });
+                        setHighscore(newStreak);
+                        console.log('Highscore Updated:', newStreak);
+                    } catch (error) {
+                        console.error('Failed to post highscore:', error);
+                    }
+
+                };
+
+                postHighscore();
+            }
+            return newStreak;
+        });
         } else if (player === 'O') {
             setWins([wins[0], wins[1] + 1]);
+            setStreak(0);
         }
     }
 
@@ -104,6 +168,13 @@ export default function Tictactoe() {
         <span className="text-xl text-secondary font-bold">{wins[1]}</span>
     </div>
 </div>
+<div className="flex flex-col items-center justify-center px-5 py-2 rounded-lg shadow-lg">
+    <span className="text-3xl text-[#3cc4bf] font-bold">Current streak: {streak}</span>
+</div>
+<div className="flex flex-col items-center justify-center px-5 py-2 rounded-lg shadow-lg">
+    <span className="text-3xl text-[#3cc4bf] font-bold">Highscore: {highscore}</span>
+</div>
+
 
     <div className="flex flex-col items-center justify-center px-5 py-2 rounded-lg shadow-lg">
         <button className={`bg-accent text-text px-4 py-2 rounded mb-5 transition-opacity duration-200 ${winner?'opacity-100 visible' : 'opacity-0 invisible'}`} onClick={handleWin}>Reset</button>
@@ -127,6 +198,7 @@ export default function Tictactoe() {
         ></div>
         <span className="text-cool mt-2">Baby</span>
     </div>
+
 
     <div className="flex flex-col items-center">
         <div

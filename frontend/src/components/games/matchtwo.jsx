@@ -110,8 +110,8 @@ export default function MatchTwo( {user} ) {
                     gameId: '4',
                     score: newScore,
                 });
-                        console.log('Highscore saved:', response.data);  // Log response to verify success
-                        setHighscore(newScore);  // Update highscore in state
+                        console.log('Highscore saved:', response.data);  
+                        setHighscore(newScore); 
                     } catch (error) {
                         console.error('Failed to save highscore:', error);
                     }

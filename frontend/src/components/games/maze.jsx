@@ -80,7 +80,7 @@ export default function MazeGame({user}) {
       clearInterval(timerRef.current);
 
       // Check if the current timer is a new highscore
-      if (highscore === null || timer < highscore) {
+      if (highscore === null || timer < highscore|| highscore === 0) {
         const saveHighscore = async () => {
           try {
             const response = await axios.post("http://localhost:5000/api/highscores", {

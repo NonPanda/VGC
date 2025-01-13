@@ -8,11 +8,11 @@ export default function CpuPaddle({ position, onPositionChange, ballPosition }) 
         const interval = setInterval(() => {
             let newY = position.y;
             if (ballPosition.y < position.y) {
-                newY = Math.max(0, position.y - 8);
+                newY = Math.max(0, position.y - 4);
                 setMovingUp(true);
                 setMovingDown(false);
             } else if (ballPosition.y > position.y + 100) {
-                newY = Math.min(450, position.y +8);
+                newY = Math.min(450, position.y +4);
                 setMovingUp(false);
                 setMovingDown(true);
             } else {
@@ -22,7 +22,7 @@ export default function CpuPaddle({ position, onPositionChange, ballPosition }) 
             if (newY !== position.y) {
                 onPositionChange({ ...position, y: newY });
             }
-        }, 10);
+        }, 5);
 
         return () => {
             clearInterval(interval);

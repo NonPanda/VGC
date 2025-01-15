@@ -3,25 +3,31 @@
 @tailwind utilities;
 
 
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  --text: #ecf2f4;
-  --background: #1a2a32;
-  --primary: #4f929c;
-  --secondary: #2f626a;
-  --accent: #337480;
-  --highlight: #f7f7f7;
-  --error: #ff4d4d;
-  --success: #00b894;
-  --warning: #f1c40f;
-  --dark-gray:#1a2a32;
-    --gray:#2e4756;
-    --cool:#3cc4bf;
-    --yellow:#f2b147;
-    --light-gray:#d3d3d3;
 
+  /* Main Colors */
+  --text: #e6f1f5; /* Slightly lighter for better readability */
+  --background: #121f26; /* A darker, richer tone for contrast */
+  --primary: #5aa2ac; /* Slightly brighter for vibrancy */
+  --secondary: #3a707b; /* Better contrast against background */
+  --accent: #3e8b98; /* Refined to be more vibrant and eye-catching */
 
+  /* Highlights and Feedback */
+  --highlight: #ffffff; /* Pure white for stronger contrast */
+  --error: #ff5252; /* Slightly brighter red for better visibility */
+  --success: #00c19d; /* Slightly more vibrant for emphasis */
+  --warning: #f4c741; /* Warmer, more attention-grabbing yellow */
 
+  /* Grayscale */
+  --dark-gray: #121f26; /* Same as updated background for consistency */
+  --gray: #3a4e59; /* A neutral, modern tone */
+  --light-gray: #cfd8dc; /* Softer for better balance */
+
+  /* Unchanged */
+  --cool: #3cc4bf;
+  --yellow: #f2b147; /* Keeping as is */
 }
 
 a {

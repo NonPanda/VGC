@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import retry from '../../assets/retry.svg';
 
 
 export default function Snake({user}) {
@@ -205,11 +206,31 @@ export default function Snake({user}) {
 
     return (
         <div className="flex flex-col items-center justify-center">
-            <h2 className="text-4xl mb-4 mt-6 font-bold text-text">Score: {score}</h2>
-            <h2 className="text-4xl mb-4 font-bold text-text">Highscore: {highscore}</h2>
-            <div className={`flex items-center justify-center mb-4 ${gameOver ? '' : 'invisible'}`}>
-            <h2 className="text-4xl mb-4 font-bold text-text">Game Over</h2>
-            <button className="bg-accent text-text font-bold px-4 py-2 rounded-md ml-4" onClick={() => window.location.reload()}>Restart</button>
+            <div className="flex gap-36 items-center justify-center py-8 mt-10">
+ 
+
+    <div className="flex items-center w-40 h-10 bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+    <div className="bg-primary w-20 h-full flex items-center justify-center">
+      <span className="text-white font-bold text-sm">Score</span>
+    </div>
+    <div className="flex-1 flex items-center justify-center">
+      <span className="text-[#e6f1f5] font-bold text-xl">{score}</span>
+    </div>
+  </div>
+  <div className="flex items-center w-40 h-10 bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+    {/* Left Section (Label) */}
+    <div className="bg-primary w-20 h-full flex items-center justify-center">
+      <span className="text-white font-bold text-sm">Highscore</span>
+    </div>
+    {/* Right Section (Value) */}
+    <div className="flex-1 flex items-center justify-center">
+      <span className="text-[#e6f1f5] font-bold text-xl">{highscore}</span>
+    </div>
+  </div>
+</div>
+            <div className={`flex items-center justify-center mb-8 ${gameOver ? '' : 'invisible'}`}>
+            <button className="bg-accent text-text font-bold px-4 py-2 rounded-md ml-4" onClick={() => window.location.reload()}>  <img src={retry} alt="Retry" className="w-6 h-6" />
+            </button>
             </div>
             
             <canvas

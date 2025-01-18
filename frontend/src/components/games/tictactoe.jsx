@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react'
 import { useEffect } from 'react'
 import axios from 'axios'
+import robot from '../../assets/robot.png'
+import retry from '../../assets/retry.svg'
 //1918,1401
 
 
@@ -10,7 +12,7 @@ import axios from 'axios'
 function Square({ value, onSquareClick }) {
     return (
         <button
-            className="w-28 h-28 bg-accent text-text font-semibold text-7xl border-2 border-cool px-0 py-0 transition-all duration-200 ease-in-out hover:border-4"
+            className="w-24 h-20 bg-accent text-text font-semibold text-4xl border-2 border-cool px-0 py-0 transition-all duration-200 ease-in-out hover:border-4"
             onClick={onSquareClick}
         >
             {value}
@@ -36,10 +38,14 @@ export default function Tictactoe({user}) {
     const [userId, setUserId] = useState(null);
     const [streak, setStreak] = useState(0);
     const [highscore, setHighscore] = useState(0);
+    const robotImage = robot;
+    const userProfilePicture = user?.photoURL;
+    
 
     useEffect(() => {
         if (user) {
           setUserId(user.uid);
+
     
           const fetchHighscore = async () => {
             try {
@@ -157,46 +163,92 @@ export default function Tictactoe({user}) {
     }
 
     return (
-        <div className="mt-5 flex flex-col items-center justify-center">
-    <div className="flex justify-center items-center gap-20 w-full px-10">
-    <div className="flex flex-col items-center ml-1">
-        <h1 className="text-3xl text-[#3cc4bf] font-bold">You</h1>
-        <span className="text-xl text-secondary font-bold">{wins[0]}</span>
+        <div className="flex flex-col items-center justify-center">
+        <div className=" flex flex-col items-center justify-center space-y-8">
+  {/* Players Section */}
+  <div className="flex justify-center items-center gap-16 w-full px-10">
+    {/* Player 1 (User) */}
+    <div className="flex flex-col items-center p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+      <div className="relative">
+        <img 
+          src={userProfilePicture} 
+          alt="User" 
+          className="w-20 h-20 rounded-full object-cover border-2 border-secondary" 
+        />
+        <div className="absolute -bottom-2 -right-2 bg-[#3cc4bf] rounded-full p-2">
+          <span className="text-white font-bold">{wins[0]}</span>
+        </div>
+      </div>
     </div>
-    <div className="flex flex-col items-center">
-        <h1 className="text-3xl text-[#3cc4bf] font-bold">Baby</h1>
-        <span className="text-xl text-secondary font-bold">{wins[1]}</span>
+
+    {/* Player 2 (CPU) */}
+    <div className="flex flex-col items-center p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+      <div className="relative">
+        <img 
+          src={robotImage} 
+          alt="CPU" 
+          className="w-20 h-20 rounded-full object-cover border-2 border-secondary" 
+        />
+        <div className="absolute -bottom-2 -right-2 bg-[#3cc4bf] rounded-full p-2">
+          <span className="text-white font-bold">{wins[1]}</span>
+        </div>
+      </div>
     </div>
+  </div>
+
+  
+
+ <div className="flex gap-16 items-center justify-center mt-6">
+ 
+
+    <div className="flex items-center w-40 h-10 bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+    <div className="bg-primary w-20 h-full flex items-center justify-center">
+      <span className="text-white font-bold text-sm">Streak</span>
+    </div>
+    <div className="flex-1 flex items-center justify-center">
+      <span className="text-[#e6f1f5] font-bold text-xl">{streak}</span>
+    </div>
+  </div>
+  <div className="flex items-center w-40 h-10 bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+    {/* Left Section (Label) */}
+    <div className="bg-primary w-20 h-full flex items-center justify-center">
+      <span className="text-white font-bold text-sm">Peak</span>
+    </div>
+    {/* Right Section (Value) */}
+    <div className="flex-1 flex items-center justify-center">
+      <span className="text-[#e6f1f5] font-bold text-xl">{highscore}</span>
+    </div>
+  </div>
 </div>
-<div className="flex flex-col items-center justify-center px-5 py-2 rounded-lg shadow-lg">
-    <span className="text-3xl text-[#3cc4bf] font-bold">Current streak: {streak}</span>
-</div>
-<div className="flex flex-col items-center justify-center px-5 py-2 rounded-lg shadow-lg">
-    <span className="text-3xl text-[#3cc4bf] font-bold">Highscore: {highscore}</span>
+
 </div>
 
 
     <div className="flex flex-col items-center justify-center px-5 py-2 rounded-lg shadow-lg">
-        <button className={`bg-accent text-text px-4 py-2 rounded mb-5 transition-opacity duration-200 ${winner?'opacity-100 visible' : 'opacity-0 invisible'}`} onClick={handleWin}>Reset</button>
-        <div className="grid grid-cols-3 gap-6 mb-3">
+    <button
+  className={`bg-accent text-text p-3 rounded-full mb-5 transition-opacity duration-200 ${winner ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
+  onClick={handleWin}
+>
+  <img src={retry} alt="Retry" className="w-6 h-6" />
+</button>        <div className="grid grid-cols-3 gap-4 mb-3">
             {squares.map((value, index) => (
                 <Square key={index} value={value} onSquareClick={() => handleClick(index)} />
             ))}
         </div>
 
-        <div className="flex justify-center gap-9 mt-2">
+        <div className="flex justify-center gap-9">
     <div className="flex flex-col items-center">
         <div
             className={`w-12 h-12 border-8 rounded-full ease-in-out duration-1000 ${winner === 'X' ? 'bg-cool border-primary' : 'bg-bg border-secondary'}`}
         ></div>
-        <span className="text-cool mt-2">You</span>
+        <span className="text-cool mt-2">X</span>
     </div>
 
     <div className="flex flex-col items-center">
         <div
             className={`w-12 h-12 border-8 rounded-full ease-in-out duration-1000 ${winner === 'O' ? 'bg-cool border-primary' : 'bg-bg border-secondary'}`}
         ></div>
-        <span className="text-cool mt-2">Baby</span>
+        <span className="text-cool mt-2">O</span>
     </div>
 
 

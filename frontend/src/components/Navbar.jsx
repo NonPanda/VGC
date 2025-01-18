@@ -56,6 +56,7 @@ export default function Navbar({ user }) {
                     <>
                         <img
                             src={user.photoURL}
+                            referrerPolicy="no-referrer"
                             alt={user.displayName}
                             className="w-10 h-10 rounded-full cursor-pointer"
                         />

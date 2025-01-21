@@ -32,7 +32,7 @@ export default function Ball({ position, onPositionChange, p1, p2, scoreChange, 
         }
         let newX=position.x+velocity.x*speed;
         let newY = position.y + velocity.y*speed;
-        if (newY < 0 || newY > 530) {
+        if (newY < 0 || newY > 480) {
             setVelocity({ ...velocity, y: -velocity.y });
         }
         if (newX < 0) {
@@ -73,7 +73,7 @@ export default function Ball({ position, onPositionChange, p1, p2, scoreChange, 
 
     const resetBall = (victors) => {
         setVictor(victors);
-        onPositionChange({ x: 650, y: 225 });
+        onPositionChange({ x: 650, y: 200 });
         if(victor==='p1'){
 
             setVelocity({ x: -2, y: 2 });
@@ -113,7 +113,7 @@ export default function Ball({ position, onPositionChange, p1, p2, scoreChange, 
                     style={{
                         position: 'absolute',
                         top: '50%',
-                        left: '50.5%',
+                        left: '50%',
                         transform: 'translate(-50%, -50%)',
                         fontSize: '24px',
                         color: 'white',

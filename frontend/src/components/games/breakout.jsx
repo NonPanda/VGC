@@ -11,7 +11,7 @@ export default function Breakout({user}) {
 
     const canvasWidth = 1399;
     const canvasHeight = 550;
-    const [paddlePosition, setPaddlePosition] = useState({ x: 600, y: 550 });
+    const [paddlePosition, setPaddlePosition] = useState({ x: 600, y: 525 });
     const [ballPosition, setBallPosition] = useState({ x: 685, y: 300 });
     const [gameStatus, setGameStatus] = useState(null);
     const [timer, setTimer] = useState(0);
@@ -60,7 +60,7 @@ export default function Breakout({user}) {
   }, [user]);
 
 
-    const rows = 7;
+    const rows = 5;
     const columns = 5;
     const [blocks, setBlocks] = useState(() => {
         const initialBlocks = [];
@@ -74,26 +74,72 @@ export default function Breakout({user}) {
 
     return (
         
-        <div className="flex flex-col items-center mt-5 bg-gray-800">
-            <div className="relative">
-                <canvas width={canvasWidth} height={canvasHeight} className=" bg-gray-900"></canvas>
-                <Paddle position={paddlePosition} onPositionChange={setPaddlePosition} controls={{right:'d', left:'a'}} />
-                <Ball position={ballPosition} onPositionChange={setBallPosition} p1={paddlePosition} blocks={blocks} setBlocks={setBlocks} blockWidth={blockWidth} blockHeight={blockHeight} 
-                 setTimer={setTimer} setHighscore={setHighscore} highscore={highscore} userId={userId} gameStatus={gameStatus} setGameStatus={setGameStatus} timer={timer}
+                             <div className="flex flex-col items-center bg-gray-800 p-4 pt-20">
+                {/* Highscore Display - Top Right */}
+                <div className="absolute top-24 right-4 flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-cyan-600/10 to-cyan-500/20 rounded-xl backdrop-blur-sm border border-cyan-500/20 hover:bg-cyan-500/15 transition-all duration-300 shadow-[0_0_15px_rgba(6,182,212,0.2)]">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                  </svg>
+                  <div className="flex items-center gap-2">
+                    <span className="text-cyan-200 text-sm font-medium">Best Time:</span>
+                    <span className="text-2xl font-bold text-cyan-200">
+                      {highscore !== null ? timeformat(highscore) : "N/A"}
+                    </span>
+                  </div>
+                </div>
+              
+              
+                {/* Timer Display - Center */}
+                <div className="absolute top-24 flex items-center px-4 py-2 mb-4 gap-6 bg-gradient-to-r from-purple-500/10 to-blue-500/10 p-4 rounded-xl backdrop-blur-sm border border-white/10 shadow-lg">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span className={`text-2xl font-bold ${gameStatus === "Win" ? "text-green-500" : "text-cyan-200"}`}>
+                    {timeformat(timer)}
+                  </span>
+                </div>
+                
+              
 
-                />
-                {blocks.map((block, index) => (
-                    <Block key={index} position={block} width={blockWidth} height={blockHeight} />
-                ))}
-            </div>
-            <span className={`mt-10 text-3xl font-semibold text-cyan-200 shadow-md px-2 py-1 rounded-lg min-w-[90px] text-center hover:text-cyan-700 transition-colors duration-300 ease-in-out ${gameStatus === "Win" ? "text-green-500" :""}`}
-             >
-    {timeformat(timer)}
-    </span>
-    <span className="mt-5 text-3xl font-semibold text-cyan-200 shadow-md px-2 py-1 rounded-lg min-w-[90px] text-center hover:text-cyan-700 transition-colors duration-300 ease-in-out">
-    highscore: {timeformat(highscore)}
-    </span>
-        </div>
+              
+                {/* Game Container */}
+                <div className="relative mt-5">
+                  <canvas 
+                    width={canvasWidth} 
+                    height={canvasHeight} 
+                    className="bg-gray-900 rounded-lg shadow-lg"
+                  />
+                  <Paddle 
+                    position={paddlePosition} 
+                    onPositionChange={setPaddlePosition} 
+                    controls={{right:'d', left:'a'}} 
+                  />
+                  <Ball 
+                    position={ballPosition} 
+                    onPositionChange={setBallPosition} 
+                    p1={paddlePosition} 
+                    blocks={blocks} 
+                    setBlocks={setBlocks} 
+                    blockWidth={blockWidth} 
+                    blockHeight={blockHeight} 
+                    setTimer={setTimer} 
+                    setHighscore={setHighscore} 
+                    highscore={highscore} 
+                    userId={userId} 
+                    gameStatus={gameStatus} 
+                    setGameStatus={setGameStatus} 
+                    timer={timer}
+                  />
+                  {blocks.map((block, index) => (
+                    <Block 
+                      key={index} 
+                      position={block} 
+                      width={blockWidth} 
+                      height={blockHeight} 
+                    />
+                  ))}
+                </div>
+              </div>
 
     );
 }

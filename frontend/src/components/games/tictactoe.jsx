@@ -12,7 +12,7 @@ import retry from '../../assets/retry.svg'
 function Square({ value, onSquareClick }) {
     return (
         <button
-            className="w-24 h-20 bg-accent text-text font-semibold text-4xl border-2 border-cool px-0 py-0 transition-all duration-200 ease-in-out hover:border-4"
+            className="w-28 h-24 bg-accent text-text font-semibold text-5xl border-2 border-cool px-0 py-0 transition-all duration-200 ease-in-out hover:border-4"
             onClick={onSquareClick}
         >
             {value}
@@ -163,68 +163,63 @@ export default function Tictactoe({user}) {
     }
 
     return (
-        <div className="flex flex-col items-center justify-center">
-        <div className=" flex flex-col items-center justify-center space-y-8">
-  {/* Players Section */}
-  <div className="flex justify-center items-center gap-16 w-full px-10">
-    {/* Player 1 (User) */}
-    <div className="flex flex-col items-center p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
-      <div className="relative">
-        <img 
-          src={userProfilePicture} 
-          alt="User" 
-          className="w-20 h-20 rounded-full object-cover border-2 border-secondary" 
-        />
-        <div className="absolute -bottom-2 -right-2 bg-[#3cc4bf] rounded-full p-2">
-          <span className="text-white font-bold">{wins[0]}</span>
+      <div className="relative flex flex-col items-center h-[90%]">
+      <div className="absolute top-4 right-4 flex items-center gap-4 px-6 h-10 bg-gradient-to-r from-cyan-500/20 to-cyan-600/10 rounded-lg backdrop-blur-sm border border-cyan-500/20 hover:bg-cyan-500/15 transition-all duration-300 shadow-[0_0_15px_rgba(6,182,212,0.2)]">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+        </svg>
+        <div className="flex items-center gap-2">
+          <span className="text-cyan-200 font-medium text-sm">Peak Streak:</span>
+          <span className="text-cyan-200 font-bold text-sm">
+            {highscore !== null ? highscore : 'N/A'}
+          </span>
         </div>
       </div>
-    </div>
-
-    {/* Player 2 (CPU) */}
-    <div className="flex flex-col items-center p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
-      <div className="relative">
-        <img 
-          src={robotImage} 
-          alt="CPU" 
-          className="w-20 h-20 rounded-full object-cover border-2 border-secondary" 
-        />
-        <div className="absolute -bottom-2 -right-2 bg-[#3cc4bf] rounded-full p-2">
-          <span className="text-white font-bold">{wins[1]}</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
+        
   
+          
+            {/* Players Section */}
+            <div className="flex flex-row items-center justify-center space-x-8">
+              {/* User */}
+              <div className="relative flex flex-col items-center p-6 rounded-xl hover:shadow-xl transition-all duration-300">
+                <div className="relative">
+                  <img
+                    src={userProfilePicture}
+                    alt="User"
+                    className="w-20 h-20 rounded-full object-cover border-2 border-secondary"
+                  />
+                  {/* Fire Effect */}
+                  <div className={`absolute top-0 left-0 w-10 h-10 flex items-center justify-center  ${streak ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+                    <div className="flame"></div>
+                    <div className="flame"></div>
+                    <span className={`absolute text-red-800 font-bold text-xl z-10 animate-pulse  `}>
+                      {streak}
+                    </span>
+                  </div>
+                  <div className="absolute -bottom-2 -right-2 bg-blue-400 rounded-full p-2">
+                    <span className="text-white font-bold"> {wins[0]} </span>
+                  </div>
+                </div>
+              </div>
+          
+              {/* CPU */}
+              <div className="relative flex flex-col items-center p-6 rounded-xl hover:shadow-xl transition-all duration-300">
+                <div className="relative">
+                  <img
+                    src={robotImage}
+                    alt="CPU"
+                    className="w-20 h-20 rounded-full object-cover border-2 border-secondary"
+                  />
+                  <div className="absolute -bottom-2 -right-2 bg-blue-400 rounded-full p-2">
+                    <span className="text-white font-bold">{wins[1]}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
- <div className="flex gap-16 items-center justify-center mt-6">
- 
-
-    <div className="flex items-center w-40 h-10 bg-gray-800 rounded-lg overflow-hidden shadow-lg">
-    <div className="bg-primary w-20 h-full flex items-center justify-center">
-      <span className="text-white font-bold text-sm">Streak</span>
-    </div>
-    <div className="flex-1 flex items-center justify-center">
-      <span className="text-[#e6f1f5] font-bold text-xl">{streak}</span>
-    </div>
-  </div>
-  <div className="flex items-center w-40 h-10 bg-gray-800 rounded-lg overflow-hidden shadow-lg">
-    {/* Left Section (Label) */}
-    <div className="bg-primary w-20 h-full flex items-center justify-center">
-      <span className="text-white font-bold text-sm">Peak</span>
-    </div>
-    {/* Right Section (Value) */}
-    <div className="flex-1 flex items-center justify-center">
-      <span className="text-[#e6f1f5] font-bold text-xl">{highscore}</span>
-    </div>
-  </div>
-</div>
-
-</div>
 
 
-    <div className="flex flex-col items-center justify-center px-5 py-2 rounded-lg shadow-lg">
+    <div className="flex flex-col items-center justify-center px-5 py-2 rounded-lg">
     <button
   className={`bg-accent text-text p-3 rounded-full mb-5 transition-opacity duration-200 ${winner ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
   onClick={handleWin}

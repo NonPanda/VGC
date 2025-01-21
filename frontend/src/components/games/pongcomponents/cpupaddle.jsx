@@ -12,7 +12,7 @@ export default function CpuPaddle({ position, onPositionChange, ballPosition }) 
                 setMovingUp(true);
                 setMovingDown(false);
             } else if (ballPosition.y > position.y + 100) {
-                newY = Math.min(450, position.y +4);
+                newY = Math.min(400, position.y +4);
                 setMovingUp(false);
                 setMovingDown(true);
             } else {

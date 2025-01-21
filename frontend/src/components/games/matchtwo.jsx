@@ -146,12 +146,40 @@ export default function MatchTwo( {user} ) {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center mt-10">
-            <div className="flex items-center justify-center gap-10">
-                <h2 className="text-3xl mb-2 font-bold text-text">Tries: {tries}</h2>
-                <h2 className="text-3xl mb-2 font-bold text-text">Moves: {moves}</h2>
-                <h2 className="text-3xl mb-2 font-bold text-text">Highscore: {highscore !== null ? highscore : 'N/A'}</h2>
- </div>
+<div className="relative flex flex-col items-center h-screen">
+<div className="absolute top-4 right-4 flex items-center gap-4 px-6 h-10 bg-gradient-to-r from-cyan-500/20 to-cyan-600/10 rounded-lg backdrop-blur-sm border border-cyan-500/20 hover:bg-cyan-500/15 transition-all duration-300 shadow-[0_0_15px_rgba(6,182,212,0.2)]">
+  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+  </svg>
+  <div className="flex items-center gap-2">
+    <span className="text-cyan-200 font-medium text-sm">Least Moves:</span>
+    <span className="text-cyan-200 font-bold text-sm">
+      {highscore !== null ? highscore : 'N/A'}
+    </span>
+  </div>
+</div>
+    <div className="mt-6 flex items-center justify-center gap-6 bg-gradient-to-r from-purple-500/10 to-blue-500/10 p-4 rounded-xl backdrop-blur-sm border border-white/10 shadow-lg">
+  <div className="flex items-center gap-2">
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-fuchsia-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+    </svg>
+    <h2 className="text-2xl font-bold text-purple-400 transition-all duration-300">
+      Tries: <span>{tries}</span>
+    </h2>
+  </div>
+  
+  <div className="w-px h-8 bg-white/10"></div>
+  
+  <div className="flex items-center gap-2">
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+    </svg>
+    <h2 className="text-2xl font-bold text-cyan-200 transition-all duration-300">
+      Moves: <span>{moves}</span>
+    </h2>
+  </div>
+</div>
             <div className={`flex items-center justify-center mb-4 transition-opacity duration-700 ${gameOver ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
                 <h2 className="text-3xl mb-4 font-bold text-text">{win ? 'You Win' : 'Game Over'}</h2>
                 <button className="bg-accent text-text font-bold px-4 py-2 rounded-md ml-4" onClick={() => window.location.reload()}>Restart</button>

@@ -98,7 +98,7 @@ export default function Ball({ position, onPositionChange, p1, blocks, setBlocks
             setVelocity((prev) => ({ ...prev, y: -prev.y }));
         }
     
-        if (newY > 550) { 
+        if (newY > 525) { 
             setVictor("p2");
             return;
         }
@@ -128,8 +128,8 @@ export default function Ball({ position, onPositionChange, p1, blocks, setBlocks
         setSpeed(2);
         setBlocks(() => {
             const initialBlocks = [];
-            for (let row = 0; row < 1; row++) {
-                for (let col = 0; col < 1; col++) {
+            for (let row = 0; row < 5; row++) {
+                for (let col = 0; col < 5; col++) {
                     initialBlocks.push({ x: col * blockWidth, y: row * blockHeight, id: `${row}-${col}` });
                 }
             }

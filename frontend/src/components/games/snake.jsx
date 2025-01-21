@@ -205,29 +205,30 @@ export default function Snake({user}) {
     
 
     return (
-        <div className="flex flex-col items-center justify-center">
-            <div className="flex gap-36 items-center justify-center py-8 mt-10">
- 
-
-    <div className="flex items-center w-40 h-10 bg-gray-800 rounded-lg overflow-hidden shadow-lg">
-    <div className="bg-primary w-20 h-full flex items-center justify-center">
-      <span className="text-white font-bold text-sm">Score</span>
-    </div>
-    <div className="flex-1 flex items-center justify-center">
-      <span className="text-[#e6f1f5] font-bold text-xl">{score}</span>
-    </div>
-  </div>
-  <div className="flex items-center w-40 h-10 bg-gray-800 rounded-lg overflow-hidden shadow-lg">
-    {/* Left Section (Label) */}
-    <div className="bg-primary w-20 h-full flex items-center justify-center">
-      <span className="text-white font-bold text-sm">Highscore</span>
-    </div>
-    {/* Right Section (Value) */}
-    <div className="flex-1 flex items-center justify-center">
-      <span className="text-[#e6f1f5] font-bold text-xl">{highscore}</span>
-    </div>
-  </div>
-</div>
+        <div className="relative flex flex-col items-center h-screen">
+        <div className="absolute top-4 right-4 flex items-center gap-4 px-6 h-10 bg-gradient-to-r from-cyan-500/20 to-cyan-600/10 rounded-lg backdrop-blur-sm border border-cyan-500/20 hover:bg-cyan-500/15 transition-all duration-300 shadow-[0_0_15px_rgba(6,182,212,0.2)]">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+          </svg>
+          <div className="flex items-center gap-2">
+            <span className="text-cyan-200 font-medium text-sm">Highscore:</span>
+            <span className="text-cyan-200 font-bold text-sm">
+              {highscore !== null ? highscore : 'N/A'}
+            </span>
+          </div>
+        </div>
+            <div className="mt-8 mb-4 flex items-center justify-center gap-6 bg-gradient-to-r from-purple-500/10 to-blue-500/10 p-4 rounded-xl backdrop-blur-sm border border-white/10 shadow-lg">
+          
+          
+          <div className="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            <h2 className="text-2xl font-bold text-cyan-200 transition-all duration-300">
+              Score: <span>{score}</span>
+            </h2>
+          </div>
+        </div>
             <div className={`flex items-center justify-center mb-8 ${gameOver ? '' : 'invisible'}`}>
             <button className="bg-accent text-text font-bold px-4 py-2 rounded-md ml-4" onClick={() => window.location.reload()}>  <img src={retry} alt="Retry" className="w-6 h-6" />
             </button>

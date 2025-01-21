@@ -49,7 +49,7 @@ export default function Paddle({ position, onPositionChange, controls }) {
                newY=Math.max(0,position.y-8);
             }
             if(movingDown){
-                newY=Math.min(450,position.y+8);
+                newY=Math.min(400,position.y+8);
             }
             if(newY!==position.y)
             onPositionChange({...position,y:newY});

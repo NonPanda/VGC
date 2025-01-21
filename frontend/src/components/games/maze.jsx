@@ -104,22 +104,32 @@ export default function MazeGame({user}) {
   }, []);
 
   return (
-    <div className="flex items-center justify-center h-[90vh] bg-black">
-      <div className="absolute top-24 left-5 flex items-center space-x-2 text-white px-3 py-2 rounded-lg shadow-lg">
-        {gameActive && (
-          <span className="text-3xl font-semibold text-cyan-200 shadow-md px-2 py-1 rounded-lg min-w-[90px] text-center hover:text-cyan-700 transition-colors duration-300 ease-in-out">
-            {timeformat(timer)}
+    <div className="flex items-center justify-center h-[90vh]">
+            {/* Timer Display */}
+            <div className="absolute top-24 left-5 flex items-center px-4 py-2 mb-4 gap-6 bg-gradient-to-r from-purple-500/10 to-blue-500/10 p-4 rounded-xl backdrop-blur-sm border border-white/10 shadow-lg">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span className={`text-2xl font-bold text-cyan-200`}>
+                    {timeformat(timer)}
+                  </span>
+                </div>
+      
+      {/* Highscore Display */}
+      <div className="absolute top-24 right-5 flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-cyan-600/10 to-cyan-500/20 rounded-xl backdrop-blur-sm border border-cyan-500/20 hover:bg-cyan-500/15 transition-all duration-300 shadow-[0_0_15px_rgba(6,182,212,0.2)]">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+        </svg>
+        <div className="flex items-center gap-2">
+          <span className="text-cyan-200 text-sm font-medium">Best:</span>
+          <span className="text-2xl font-bold text-cyan-200">
+            {highscore !== null ? timeformat(highscore) : "N/A"}
           </span>
-        )}
-      </div>
-      <div className="absolute top-24 right-5 flex items-center space-x-2 text-white px-3 py-2 rounded-lg shadow-lg">
-        <span className="text-3xl font-semibold text-cyan-200 shadow-md px-2 py-1 rounded-lg min-w-[90px] text-center hover:text-cyan-700 transition-colors duration-300 ease-in-out">
-          Highscore: {highscore !== null ? timeformat(highscore) : "N/A"}
-        </span>
+        </div>
       </div>
 
       <div className="relative">
-        <div className="relative w-[500px] h-[500px] bg-black">
+        <div className="relative w-[500px] h-[500px]">
           <div className="wrapper" onMouseLeave={handleEnd}>
             <div className="absolute top-[500px] left-[100px] w-[400px] h-16 bg-cyan-400"></div>
             <div className="absolute top-[400px] left-[444px] w-14 h-28 bg-cyan-400"></div>

@@ -10,7 +10,7 @@ export default function Gamecard({ game, isPurchased, isShop }) {
     const handlePurchase = async () => {
         if (isPurchased) return;
         try {
-            const response = await axios.post('http://localhost:5000/api/purchase', {
+            const response = await axios.post('http://localhost:5000/api/purchases', {
                 userId: user,
                 gameId: game.id,
             });

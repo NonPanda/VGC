@@ -16,7 +16,7 @@ export default function Games() {
     useEffect(() => {
         const fetchGames = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/games/purchased?userId=${user}`);
+                const response = await axios.get(`http://localhost:5000/api/purchases?userId=${user}`);
                 const purchasedGameIds = response.data.map(id => Number(id)); 
                 setGames(purchasedGameIds);
             } catch (error) {

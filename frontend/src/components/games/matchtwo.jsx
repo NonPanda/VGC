@@ -6,7 +6,6 @@ import { auth } from '../../firebaseConfig';
 
 
 
-//data set of 8 numbers
 const numbers=Array.from({ length: 8 }, (v, i) => i + 1);
 
 function Square({ value, onSquareClick }) {
@@ -45,7 +44,6 @@ export default function MatchTwo( {user} ) {
                             gameId: '4',
                         },
                     });
-                    console.log('API Response:', response.data);
     
                     if (response.data && response.data.highscore !== undefined) {
                         setHighscore(response.data.highscore);
@@ -61,20 +59,11 @@ export default function MatchTwo( {user} ) {
             console.warn('User is not logged in!');
         }
     }, [user]);
-
-
-
-    
-    
+   
     useEffect(() => {
         const shuffled = numbers.concat(numbers).sort(() => Math.random() - 0.5);
         setBoard(shuffled);
     }, []);
-
- 
-
-
-
 
     useEffect(() => {
         if (selected.length === 2) {
@@ -99,10 +88,6 @@ export default function MatchTwo( {user} ) {
     
             const saveHighscore = async () => {
                 const newScore = moves;
-                console.log('New Score:', newScore);
-                console.log('Highscore:', highscore);
-                console.log('User ID:', userId);
-                console.log('Game ID:', '4');
                 if (newScore < highscore|| highscore === null||highscore===0) {
                     try {
                         const response = await axios.post('http://localhost:5000/api/highscores', {
@@ -110,7 +95,6 @@ export default function MatchTwo( {user} ) {
                     gameId: '4',
                     score: newScore,
                 });
-                        console.log('Highscore saved:', response.data);  
                         setHighscore(newScore); 
                     } catch (error) {
                         console.error('Failed to save highscore:', error);
@@ -123,17 +107,12 @@ export default function MatchTwo( {user} ) {
         }
     }, [matched, board, moves, highscore]);
     
-
-
-
     useEffect(()=>{
         if(tries===0){
             setGameOver(true);
             
     }
     },[tries]);
-
-
 
     const handleClick = (i) => {
         if(gameOver){

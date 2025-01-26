@@ -40,7 +40,6 @@ export default function Breakout({user}) {
               gameId: "6",
             },
           });
-          console.log("Highscore Fetch Response:", response.data);
 
           if (response.data && response.data.highscore !== undefined) {
 
@@ -73,9 +72,7 @@ export default function Breakout({user}) {
         });
 
     return (
-        
-                             <div className="flex flex-col items-center bg-gray-800 p-4 pt-20">
-                {/* Highscore Display - Top Right */}
+              <div className="flex flex-col items-center bg-gray-800 p-4 pt-20">
                 <div className="absolute top-24 right-4 flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-cyan-600/10 to-cyan-500/20 rounded-xl backdrop-blur-sm border border-cyan-500/20 hover:bg-cyan-500/15 transition-all duration-300 shadow-[0_0_15px_rgba(6,182,212,0.2)]">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
@@ -89,7 +86,6 @@ export default function Breakout({user}) {
                 </div>
               
               
-                {/* Timer Display - Center */}
                 <div className="absolute top-24 flex items-center px-4 py-2 mb-4 gap-6 bg-gradient-to-r from-purple-500/10 to-blue-500/10 p-4 rounded-xl backdrop-blur-sm border border-white/10 shadow-lg">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -98,11 +94,7 @@ export default function Breakout({user}) {
                     {timeformat(timer)}
                   </span>
                 </div>
-                
-              
-
-              
-                {/* Game Container */}
+                                   
                 <div className="relative mt-5">
                   <canvas 
                     width={canvasWidth} 

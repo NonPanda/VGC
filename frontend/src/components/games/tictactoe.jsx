@@ -55,7 +55,6 @@ export default function Tictactoe({user}) {
                   gameId: "1",
                 },
               });
-              console.log("Highscore Fetch Response:", response.data);
     
               if (response.data && response.data.highscore !== undefined) {
     
@@ -140,7 +139,6 @@ export default function Tictactoe({user}) {
                             score: newStreak,
                         });
                         setHighscore(newStreak);
-                        console.log('Highscore Updated:', newStreak);
                     } catch (error) {
                         console.error('Failed to post highscore:', error);
                     }
@@ -178,9 +176,7 @@ export default function Tictactoe({user}) {
         
   
           
-            {/* Players Section */}
             <div className="flex flex-row items-center justify-center space-x-8">
-              {/* User */}
               <div className="relative flex flex-col items-center p-6 rounded-xl hover:shadow-xl transition-all duration-300">
                 <div className="relative">
                   <img
@@ -188,8 +184,7 @@ export default function Tictactoe({user}) {
                     alt="User"
                     className="w-20 h-20 rounded-full object-cover border-2 border-secondary"
                   />
-                  {/* Fire Effect */}
-                  <div className={`absolute top-0 left-0 w-10 h-10 flex items-center justify-center  ${streak ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+                  <div className={`absolute -top-1 -left-2 w-10 h-10 flex items-center justify-center  ${streak ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
                     <div className="flame"></div>
                     <div className="flame"></div>
                     <span className={`absolute text-red-800 font-bold text-xl z-10 animate-pulse  `}>
@@ -202,7 +197,6 @@ export default function Tictactoe({user}) {
                 </div>
               </div>
           
-              {/* CPU */}
               <div className="relative flex flex-col items-center p-6 rounded-xl hover:shadow-xl transition-all duration-300">
                 <div className="relative">
                   <img

@@ -47,7 +47,7 @@ export default function Gamecard({ game, isPurchased, isShop }) {
                 ) : isPurchased ? (
                     <Link
                         to={`/game/${game.id}`}
-                        className="mt-2 bg-cool text-text px-3 py-1 rounded-lg hover:text-accent hover:font-do"
+                        className="mt-2 bg-cool text-text px-5 text-l py-1 rounded-lg hover:text-accent"
                     >
                         Play
                     </Link>

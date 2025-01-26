@@ -11,7 +11,6 @@ export default function MazeGame({user}) {
   const [userId, setUserId] = useState(null);
   const [highscore, setHighscore] = useState(99999);
 
-  // Format the timer as MM:SS
   const timeformat = (time) => {
     if (typeof time !== "number" || time < 0) return "N/A";
     const minutes = Math.floor(time / 60);
@@ -32,7 +31,6 @@ export default function MazeGame({user}) {
               gameId: "5",
             },
           });
-          console.log("Highscore Fetch Response:", response.data);
 
           if (response.data && response.data.highscore !== undefined) {
 
@@ -79,7 +77,6 @@ export default function MazeGame({user}) {
       setHasWon(true);
       clearInterval(timerRef.current);
 
-      // Check if the current timer is a new highscore
       if (highscore === null || timer < highscore|| highscore === 0) {
         const saveHighscore = async () => {
           try {
@@ -88,8 +85,7 @@ export default function MazeGame({user}) {
               gameId: "5",
               score: timer,
             });
-            console.log("Highscore saved:", response.data);
-            setHighscore(timer); // Update highscore state after saving
+            setHighscore(timer); 
           } catch (error) {
             console.error("Failed to save highscore:", error);
           }
@@ -105,7 +101,6 @@ export default function MazeGame({user}) {
 
   return (
     <div className="flex items-center justify-center h-[90vh]">
-            {/* Timer Display */}
             <div className="absolute top-24 left-5 flex items-center px-4 py-2 mb-4 gap-6 bg-gradient-to-r from-purple-500/10 to-blue-500/10 p-4 rounded-xl backdrop-blur-sm border border-white/10 shadow-lg">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -115,7 +110,6 @@ export default function MazeGame({user}) {
                   </span>
                 </div>
       
-      {/* Highscore Display */}
       <div className="absolute top-24 right-5 flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-cyan-600/10 to-cyan-500/20 rounded-xl backdrop-blur-sm border border-cyan-500/20 hover:bg-cyan-500/15 transition-all duration-300 shadow-[0_0_15px_rgba(6,182,212,0.2)]">
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />

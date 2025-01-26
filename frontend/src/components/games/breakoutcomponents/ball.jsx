@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
-
 export default function Ball({ position, onPositionChange, p1, blocks, setBlocks, blockWidth, blockHeight, setTimer,
     setHighscore, highscore, userId, timer
  }) {

@@ -3,6 +3,11 @@
 @tailwind utilities;
 
 
+@font-face {
+  font-family: 'Pixel';
+  src: url('../public/fonts/terminal.otf') format('opentype');
+
+}
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -42,6 +47,8 @@ body {
   margin: 0;
   min-height: 100vh;
   background-color: var(--background);
+  font-family: 'Pixel', sans-serif;
+
 }
 
 h1 {

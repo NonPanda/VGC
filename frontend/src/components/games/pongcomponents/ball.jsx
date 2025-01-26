@@ -10,13 +10,11 @@ export default function Ball({ position, onPositionChange, p1, p2, scoreChange, 
 
     const checkcollision=(paddleposition,position)=>{
         const paddlecenter=paddleposition.y+50;
-        //for left paddle
         if(position.x<=paddleposition.x+20&&position.x>=paddleposition.x&&position.y<=paddleposition.y+100&&position.y>=paddleposition.y)
         {
             const offset=position.y-paddlecenter;
             return {collision:true,offset};
         }
-        //for right paddle
             if(position.x+20<=paddleposition.x+20&&position.x+20>=paddleposition.x&&position.y+20<=paddleposition.y+100&&position.y+20>=paddleposition.y)
         {
             const offset=position.y-paddlecenter;

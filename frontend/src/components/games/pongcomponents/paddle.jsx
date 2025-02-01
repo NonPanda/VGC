@@ -5,43 +5,38 @@ import { useState } from 'react';
 
 
 export default function Paddle({ position, onPositionChange, controls }) {
-
-    const{up,down}=controls;
+    const { up, down } = controls;
     const [movingUp, setMovingUp] = useState(false);
     const [movingDown, setMovingDown] = useState(false);
+
     useEffect(() => {
-        
         const handleKeyDown = (e) => {
-            let newY=position.y;
-            const key=e.key.toLowerCase();
-            if (key === up) {
+            const key = e.key;
+            if (up.includes(key)) {
                 setMovingUp(true);
             }
-            if(key === down){
+            if (down.includes(key)) {
                 setMovingDown(true);
             }
-            if(newY!==position.y)
-
-            onPositionChange({...position, y: newY });
-
         };
+
         const handleKeyUp = (e) => {
-            const key = e.key.toLowerCase();
-            if (key === up) {
+            const key = e.key;
+            if (up.includes(key)) {
                 setMovingUp(false);
             }
-            if(key === down){
+            if (down.includes(key)) {
                 setMovingDown(false);
             }
         };
+
         window.addEventListener('keydown', handleKeyDown);
         window.addEventListener('keyup', handleKeyUp);
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
             window.removeEventListener('keyup', handleKeyUp);
         };
-
-    });
+    }, [up, down]);
     useEffect(()=>{
         const interval=setInterval(()=>{
             let newY=position.y;

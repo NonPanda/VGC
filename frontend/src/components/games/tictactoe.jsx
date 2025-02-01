@@ -161,14 +161,14 @@ export default function Tictactoe({user}) {
     }
 
     return (
-      <div className="relative flex flex-col items-center h-[90%]">
-      <div className="absolute top-4 right-4 flex items-center gap-4 px-6 h-10 bg-gradient-to-r from-cyan-500/20 to-cyan-600/10 rounded-lg backdrop-blur-sm border border-cyan-500/20 hover:bg-cyan-500/15 transition-all duration-300 shadow-[0_0_15px_rgba(6,182,212,0.2)]">
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <div className="relative flex flex-col items-center h-[90%] mt-4">
+      <div className="-mt-4 absolute top-4 right-4 flex items-center gap-4 px-6 h-12 bg-gradient-to-r from-cyan-500/20 to-cyan-600/10 rounded-lg backdrop-blur-sm border border-cyan-500/20 hover:bg-cyan-500/15 transition-all duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
         </svg>
         <div className="flex items-center gap-2">
-          <span className="text-cyan-200 font-medium text-sm">Peak Streak:</span>
-          <span className="text-cyan-200 font-bold text-sm">
+          <span className="text-cyan-200 font-medium text-xl">Peak Streak:</span>
+          <span className="text-cyan-200 font-bold text-xl">
             {highscore !== null ? highscore : 'N/A'}
           </span>
         </div>
@@ -182,16 +182,16 @@ export default function Tictactoe({user}) {
                   <img
                     src={userProfilePicture}
                     alt="User"
-                    className="w-20 h-20 rounded-full object-cover border-2 border-secondary"
+                    className="w-20 h-20 rounded-full object-cover"
                   />
                   <div className={`absolute -top-1 -left-2 w-10 h-10 flex items-center justify-center  ${streak ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
                     <div className="flame"></div>
                     <div className="flame"></div>
-                    <span className={`absolute text-red-800 font-bold text-xl z-10 animate-pulse  `}>
+                    <span className={`absolute text-red-800 font-extrabold text-xl z-10 animate-pulse  `}>
                       {streak}
                     </span>
                   </div>
-                  <div className="absolute -bottom-2 -right-2 bg-blue-400 rounded-full p-2">
+                  <div className="absolute -bottom-2 -right-2 bg-primary rounded-full p-2">
                     <span className="text-white font-bold"> {wins[0]} </span>
                   </div>
                 </div>
@@ -202,9 +202,9 @@ export default function Tictactoe({user}) {
                   <img
                     src={robotImage}
                     alt="CPU"
-                    className="w-20 h-20 rounded-full object-cover border-2 border-secondary"
+                    className="w-20 h-20 rounded-full object-cover"
                   />
-                  <div className="absolute -bottom-2 -right-2 bg-blue-400 rounded-full p-2">
+                  <div className="absolute -bottom-2 -right-2 bg-primary rounded-full p-2">
                     <span className="text-white font-bold">{wins[1]}</span>
                   </div>
                 </div>
@@ -230,14 +230,14 @@ export default function Tictactoe({user}) {
         <div
             className={`w-12 h-12 border-8 rounded-full ease-in-out duration-1000 ${winner === 'X' ? 'bg-cool border-primary' : 'bg-bg border-secondary'}`}
         ></div>
-        <span className="text-cool mt-2">X</span>
+        <span className="text-cool mt-2 text-xl">X</span>
     </div>
 
     <div className="flex flex-col items-center">
         <div
             className={`w-12 h-12 border-8 rounded-full ease-in-out duration-1000 ${winner === 'O' ? 'bg-cool border-primary' : 'bg-bg border-secondary'}`}
         ></div>
-        <span className="text-cool mt-2">O</span>
+        <span className="text-cool mt-2 text-xl">O</span>
     </div>
 
 
@@ -245,7 +245,7 @@ export default function Tictactoe({user}) {
         <div
             className={`w-12 h-12 border-8 rounded-full ease-in-out duration-1000 ${winner === 'Tie' ? 'bg-cool border-primary' : 'bg-bg border-secondary'}`}
         ></div>
-        <span className="text-cool mt-2">Tie</span>
+        <span className="text-cool mt-2 text-xl">Tie</span>
     </div>
 </div>
 

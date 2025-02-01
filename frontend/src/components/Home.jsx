@@ -10,12 +10,7 @@ import arcade from '../assets/arcade.png';
 
 
 function Home() {
-    // const auth = getAuth();
-    //     const user = auth.currentUser?.uid;
-    //     if (!user) {
-    //         console.error("No user is currently signed in.");
-    //         return;
-    //     }
+
     return (
 
         <div className="mt-20 flex flex-col items-center justify-center h-[100%] bg-bg-primary">

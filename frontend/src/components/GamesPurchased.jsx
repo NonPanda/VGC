@@ -3,48 +3,59 @@ import { getAuth } from 'firebase/auth';
 import axios from 'axios';
 import Gamecard from './gamecard';
 import allGames from './games';
+
 export default function Games() {
     const auth = getAuth();
     const user = auth.currentUser?.uid;
 
-    if (!user) {
-        return <h1>Please sign in to view this page</h1>;
-    }
-
-    const [gamespurchased, setGames] = useState([]);
+    const [gamesPurchased, setGamesPurchased] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchGames = async () => {
-            try {
-                const response = await axios.get(`http://localhost:5000/api/purchases?userId=${user}`);
-                const purchasedGameIds = response.data.map(id => Number(id)); 
-                setGames(purchasedGameIds);
-            } catch (error) {
-                console.error('Error fetching purchased games:', error);
-            }
-        };
+        if (user) {
+            const fetchGames = async () => {
+                try {
+                    const response = await axios.get(`http://localhost:5000/api/purchases?userId=${user}`);
+                    const purchasedGameIds = response.data.map(id => Number(id));
+                    setGamesPurchased(purchasedGameIds);
+                } catch (error) {
+                    console.error('Error fetching purchased games:', error);
+                } finally {
+                    setLoading(false);
+                }
+            };
 
-        fetchGames();
+            fetchGames();
+        }
     }, [user]);
 
+    if (!user) {
+        return <h1 className="text-center text-3xl text-white mt-10">Please sign in to view this page</h1>;
+    }
 
-    useEffect(() => {
-        console.log(gamespurchased);
-    }, [gamespurchased]);
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center h-screen">
+                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"></div>
+            </div>
+        );
+    }
 
     return (
-        <div className="mt-5 flex flex-col items-center justify-center pb-10">
-            <div className="flex flex-col items-center justify-center">
-                <h1 className="text-4xl text-white font-bold">Games</h1>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                    {allGames
-                        .filter(game => gamespurchased.includes(game.id)) 
-                        .map(game => (
-                            <Gamecard key={game.id} game={game} isPurchased={gamespurchased.includes(game.id)}
-                            isShop={false} 
-/>
-                        ))}
-                </div>
+        <div className="bg-gradient-to-b from-gray-800 to-gray-900 min-h-screen p-6">
+            <div className="text-center mb-8">
+                <h1 className="text-5xl text-white font-extrabold drop-shadow-lg">My Games</h1>
+                <p className="text-gray-400 mt-2">Enjoy your purchased games!</p>
+            </div>
+
+            <div className="lg:w-[900px] grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 gap-2 max-w-6xl mx-auto">
+                {allGames
+                    .filter(game => gamesPurchased.includes(game.id))
+                    .map((game) => (
+                        <div key={game.id} className="mb-4 transform hover:scale-105 transition-transform duration-300">
+                            <Gamecard game={game} isPurchased={true} isShop={false} />
+                        </div>
+                    ))}
             </div>
         </div>
     );

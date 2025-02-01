@@ -72,7 +72,7 @@ export default function MazeGame({user}) {
 
   const handleWin = () => {
     if (gameActive) {
-      setGameStatus("You Win! 🎉");
+      setGameStatus("You Win! Congratulations!");
       setGameActive(false);
       setHasWon(true);
       clearInterval(timerRef.current);
@@ -110,12 +110,12 @@ export default function MazeGame({user}) {
                   </span>
                 </div>
       
-      <div className="absolute top-24 right-5 flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-cyan-600/10 to-cyan-500/20 rounded-xl backdrop-blur-sm border border-cyan-500/20 hover:bg-cyan-500/15 transition-all duration-300 shadow-[0_0_15px_rgba(6,182,212,0.2)]">
+      <div className="absolute top-24 right-5 flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-cyan-600/10 to-cyan-500/20 rounded-xl backdrop-blur-sm border border-cyan-500/20 hover:bg-cyan-500/15 transition-all duration-300">
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
         </svg>
         <div className="flex items-center gap-2">
-          <span className="text-cyan-200 text-sm font-medium">Best:</span>
+          <span className="text-cyan-200 text-2xl font-medium">Best Time:</span>
           <span className="text-2xl font-bold text-cyan-200">
             {highscore !== null ? timeformat(highscore) : "N/A"}
           </span>

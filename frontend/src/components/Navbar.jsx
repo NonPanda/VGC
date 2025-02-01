@@ -44,66 +44,31 @@ export default function Navbar({ user }) {
 
     return (
         <>
-        <div className={`w-full flex flex-wrap items-center justify-between px-5 py-3 bg-primary ${!show ?"border-b-accent border-b-4" : ""}`}>
-            
-            <Link to="/" className="text-4xl text-text font-extrabold">VGC</Link>
-            <div className="space-x-8 hidden sm:flex"> 
-            <Link to="/" className="text-text text-xl relative after:content-[''] after:block after:w-full after:h-[2px] after:bg-accent after:scale-x-0 after:origin-left after:transition-transform hover:after:scale-x-100">Home</Link>
-            <Link to="/shop" className="text-text text-xl relative after:content-[''] after:block after:w-full after:h-[2px] after:bg-accent after:scale-x-0 after:origin-left after:transition-transform hover:after:scale-x-100">Shop</Link>
-            <Link to="/games" className="text-text text-xl relative after:content-[''] after:block after:w-full after:h-[2px] after:bg-accent after:scale-x-0 after:origin-left after:transition-transform hover:after:scale-x-100">Games</Link>
-            </div>
-            <div className="flex items-center">
-                {user ? (
-                    <>
-                        <img
-                            src={user.photoURL}
-                            referrerPolicy="no-referrer"
-                            alt={user.displayName}
-                            className="w-10 h-10 rounded-full cursor-pointer"
-                        />
-                    <button className="bg-secondary text-text px-3 py-1 rounded-md font-bold ml-6 transition duration-500 ease-in-out hover:scale-110" onClick={handleSignOut}>
-                        Logout
-                    </button>
-                    </>
-            
-                ) : (
-                    
-                    <button
-                        className="bg-secondary text-text px-4 py-2 rounded transition duration-500 ease-in-out hover:scale-110"
-                        onClick={handleSignIn}
-                    >
-                        Login
-                    </button>
-                )}
-        </div>
-
-                <div className="flex flex-col items-center justify-center space-y-1 cursor-pointer sm:hidden" onClick={togglenavbar}>
-                    <div className="w-6 h-1 bg-text"></div>
-                    <div className="w-6 h-1 bg-text"></div>
-                    <div className="w-6 h-1 bg-text"></div>
+            <div className="w-full flex items-center justify-between px-6 py-4 bg-primary shadow-md">
+                <Link to="/" className="text-4xl text-text font-extrabold hover:text-accent transition-colors">VGC</Link>
+                
+                <div className="hidden sm:flex items-center space-x-12"> 
+                    <Link to="/" className="text-text text-lg font-medium hover:text-accent transition-colors relative after:content-[''] after:block after:w-full after:h-[2px] after:bg-accent after:scale-x-0 after:origin-left after:transition-transform hover:after:scale-x-100">Home</Link>
+                    <Link to="/shop" className="text-text text-lg font-medium hover:text-accent transition-colors relative after:content-[''] after:block after:w-full after:h-[2px] after:bg-accent after:scale-x-0 after:origin-left after:transition-transform hover:after:scale-x-100">Shop</Link>
+                    <Link to="/games" className="text-text text-lg font-medium hover:text-accent transition-colors relative after:content-[''] after:block after:w-full after:h-[2px] after:bg-accent after:scale-x-0 after:origin-left after:transition-transform hover:after:scale-x-100">Games</Link>
                 </div>
-                </div>
-
-            
-                <div className={`px-5 bg-primary border-b-accent border-b-4 w-full h-full inline-flex flex-col cursor-pointer sm:hidden ${show ? "block" : "hidden"}`}>
-                    <Link to="/" className="text-text text-xl py-3">Home</Link>
-                    <Link to="/shop" className="text-text text-xl py-3">Shop</Link>
-                    <Link to="/games" className="text-text text-xl py-3">Games</Link>
+    
+                <div className="hidden sm:flex items-center space-x-4">
                     {user ? (
-                        <>
+                        <div className="flex items-center space-x-4">
                             <img
                                 src={user.photoURL}
                                 referrerPolicy="no-referrer"
                                 alt={user.displayName}
-                                className="w-10 h-10 rounded-full cursor-pointer"
+                                className="w-10 h-10 rounded-full border-2 border-accent"
                             />
-                            <button className="bg-secondary text-text px-4 py-2 rounded ml-6 transition duration-500 ease-in-out hover:scale-110" onClick={handleSignOut}>
+                            <button className="bg-secondary text-text px-4 py-2 rounded-md font-medium hover:bg-opacity-90 transition-all hover:-translate-y-0.5" onClick={handleSignOut}>
                                 Logout
                             </button>
-                        </>
+                        </div>
                     ) : (
                         <button
-                            className="bg-secondary text-text px-4 py-2 rounded transition duration-500 ease-in-out hover:scale-110"
+                            className="bg-secondary text-text px-6 py-2 rounded-md font-medium hover:bg-opacity-90 transition-all hover:-translate-y-0.5"
                             onClick={handleSignIn}
                         >
                             Login
@@ -111,6 +76,42 @@ export default function Navbar({ user }) {
                     )}
                 </div>
     
+                <button className="sm:hidden p-2 hover:bg-secondary/10 rounded-lg transition-colors" onClick={togglenavbar}>
+                    <div className="space-y-1.5">
+                        <div className={`w-6 h-0.5 bg-text transition-all ${show ? 'rotate-45 translate-y-2' : ''}`}></div>
+                        <div className={`w-6 h-0.5 bg-text transition-all ${show ? 'opacity-0' : ''}`}></div>
+                        <div className={`w-6 h-0.5 bg-text transition-all ${show ? '-rotate-45 -translate-y-2' : ''}`}></div>
+                    </div>
+                </button>
+            </div>
+    
+            <div className={`absolute top-[72px] left-0 w-full bg-primary shadow-lg transition-all duration-300 transform ${show ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'} sm:hidden`}>
+                <div className="flex flex-col p-4 space-y-4">
+                    <Link to="/" className="text-text text-lg font-medium py-2 px-4 hover:bg-secondary/10 rounded-md">Home</Link>
+                    <Link to="/shop" className="text-text text-lg font-medium py-2 px-4 hover:bg-secondary/10 rounded-md">Shop</Link>
+                    <Link to="/games" className="text-text text-lg font-medium py-2 px-4 hover:bg-secondary/10 rounded-md">Games</Link>
+                    {user ? (
+                        <div className="flex items-center justify-between p-4 border-t border-accent/20">
+                            <img
+                                src={user.photoURL}
+                                referrerPolicy="no-referrer"
+                                alt={user.displayName}
+                                className="w-10 h-10 rounded-full border-2 border-accent"
+                            />
+                            <button className="bg-secondary text-text px-4 py-2 rounded-md font-medium hover:bg-opacity-90" onClick={handleSignOut}>
+                                Logout
+                            </button>
+                        </div>
+                    ) : (
+                        <button
+                            className="bg-secondary text-text px-4 py-2 rounded-md font-medium hover:bg-opacity-90 mx-4"
+                            onClick={handleSignIn}
+                        >
+                            Login
+                        </button>
+                    )}
+                </div>
+            </div>
         </>
     );
 }

@@ -10,11 +10,23 @@ import './fire.css'
 
 
 export default function Pong({user}) {
-    const canvasWidth = 1300;
-    const canvasHeight = 498;
-    const [paddle1Position, setPaddle1Position] = useState({ x: 0, y: 200 });
-    const [paddle2Position, setPaddle2Position] = useState({ x: 1280, y: 200 });
-    const [ballPosition, setBallPosition] = useState({ x: 650, y: 200 });
+  
+    // const canvasWidth= window.innerWidth*0.70;
+    // const canvasHeight= window.innerHeight*0.65;
+  const [canvasWidth, setCanvasWidth] = useState(window.innerWidth * 0.70);
+  const [canvasHeight, setCanvasHeight] = useState(window.innerHeight * 0.65);
+    useEffect(() => {
+        const handleResize = () => { 
+            setCanvasWidth(window.innerWidth * 0.70);
+            setCanvasHeight(window.innerHeight * 0.65);
+        };
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+      
+    const [paddle1Position, setPaddle1Position] = useState({ x: 0, y: canvasHeight / 2 - 50 });
+    const [paddle2Position, setPaddle2Position] = useState({ x: canvasWidth - 18, y: canvasHeight / 2 - 50 });
+    const [ballPosition, setBallPosition] = useState({ x: canvasWidth / 2, y: canvasHeight / 2 });
     const [score, setScore] = useState({ p1: 0, p2: 0 });
     const [streak, setStreak] = useState(0);
     const [userId, setUserId] = useState(null);
@@ -88,7 +100,16 @@ export default function Pong({user}) {
 
 
 
-
+if(user===null){
+  return (
+      <div className="flex flex-col items-center justify-center h-[90%] mt-20">
+          <div className="flex flex-col items-center justify-center space-y-4">
+              <h1 className="text-4xl font-bold text-text">Please sign in to play pong!</h1>
+              
+          </div>
+      </div>
+  );
+}
     return (
       <div className="relative flex flex-col items-center h-90vh">
                         <div className="absolute top-4 right-4 flex items-center gap-3 px-4 h-12 bg-gradient-to-r from-cyan-500/20 to-cyan-600/10 rounded-lg backdrop-blur-sm border border-cyan-500/20 hover:bg-cyan-500/15 transition-all duration-300">
@@ -141,9 +162,9 @@ export default function Pong({user}) {
             
             <div className="relative">
                 <canvas width={canvasWidth} height={canvasHeight} className="border-2 border-white bg-gray-900"></canvas>
-                <Paddle position={paddle1Position} onPositionChange={setPaddle1Position}  controls={{up: ['w', 'ArrowUp'],down: ['s', 'ArrowDown']}}  />
-                <CpuPaddle position={paddle2Position} onPositionChange={setPaddle2Position} ballPosition={ballPosition} />
-                <Ball position={ballPosition} onPositionChange={setBallPosition} p1={paddle1Position} p2={paddle2Position} scoreChange={setScore} setWinner={setWinner}/>
+                <Paddle position={paddle1Position} onPositionChange={setPaddle1Position}  controls={{up: ['w', 'ArrowUp'],down: ['s', 'ArrowDown']}} canvasHeight={canvasHeight} />
+                <CpuPaddle position={paddle2Position} onPositionChange={setPaddle2Position} ballPosition={ballPosition} canvasHeight={canvasHeight} />
+                <Ball position={ballPosition} onPositionChange={setBallPosition} p1={paddle1Position} p2={paddle2Position} scoreChange={setScore} setWinner={setWinner} canvasHeight={canvasHeight} canvasWidth={canvasWidth} />
             </div>
         </div>
     );

@@ -4,29 +4,31 @@ import { useState } from 'react';
 
 
 
-export default function Paddle({ position, onPositionChange, controls }) {
+export default function Paddle({ position, onPositionChange, controls,canvasHeight }) {
     const { up, down } = controls;
     const [movingUp, setMovingUp] = useState(false);
     const [movingDown, setMovingDown] = useState(false);
 
+
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if (e.key === up) {
+            if (up.includes(e.key)) {
                 setMovingUp(true);
             }
-            if (e.key === down) {
+            if (down.includes(e.key)) {
                 setMovingDown(true);
             }
-        };
-
+        }
         const handleKeyUp = (e) => {
-            if (e.key === up) {
+            if (up.includes(e.key)) {
                 setMovingUp(false);
             }
-            if (e.key === down) {
+            if (down.includes(e.key)) {
                 setMovingDown(false);
             }
-        };
+        }
+
+        
 
         window.addEventListener('keydown', handleKeyDown);
         window.addEventListener('keyup', handleKeyUp);
@@ -42,7 +44,7 @@ export default function Paddle({ position, onPositionChange, controls }) {
                newY=Math.max(0,position.y-8);
             }
             if(movingDown){
-                newY=Math.min(400,position.y+8);
+                newY=Math.min(canvasHeight-100,position.y+8);
             }
             if(newY!==position.y)
             onPositionChange({...position,y:newY});

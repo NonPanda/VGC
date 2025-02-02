@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-export default function CpuPaddle({ position, onPositionChange, ballPosition }) {
+export default function CpuPaddle({ position, onPositionChange, ballPosition,canvasHeight }) {
     const [movingUp, setMovingUp] = useState(false);
     const [movingDown, setMovingDown] = useState(false);
 
@@ -11,8 +11,8 @@ export default function CpuPaddle({ position, onPositionChange, ballPosition }) 
                 newY = Math.max(0, position.y - 4);
                 setMovingUp(true);
                 setMovingDown(false);
-            } else if (ballPosition.y > position.y + 1) {
-                newY = Math.min(400, position.y +4);
+            } else if (ballPosition.y > position.y-10) {
+                newY = Math.min(canvasHeight - 100, position.y + 4);
                 setMovingUp(false);
                 setMovingDown(true);
             } else {

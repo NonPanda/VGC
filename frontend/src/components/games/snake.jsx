@@ -203,8 +203,19 @@ export default function Snake({user}) {
     }, [snakeSpeed,gameOver]);
 
     
+    if(user===null){
+        return (
+            <div className="flex flex-col items-center justify-center h-[90%] mt-20">
+                <div className="flex flex-col items-center justify-center space-y-4">
+                    <h1 className="text-4xl font-bold text-text">Please sign in to play snake!</h1>
+                    
+                </div>
+            </div>
+        );
+    }
 
     return (
+
         <div className="relative flex flex-col items-center h-[90%]">
         <div className="absolute top-4 right-4 flex items-center gap-4 px-6 h-12 bg-gradient-to-r from-cyan-500/20 to-cyan-600/10 rounded-lg backdrop-blur-sm border border-cyan-500/20 hover:bg-cyan-500/15 transition-all duration-300">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -217,7 +228,7 @@ export default function Snake({user}) {
             </span>
           </div>
         </div>
-            <div className="mt-8 mb-4 flex items-center justify-center gap-6 bg-gradient-to-r from-purple-500/10 to-blue-500/10 p-4 rounded-xl backdrop-blur-sm border border-white/10">
+            <div className="mt-5 mb-4 flex items-center justify-center gap-6 bg-gradient-to-r from-purple-500/10 to-blue-500/10 p-4 rounded-xl backdrop-blur-sm border border-white/10">
           
           
           <div className="flex items-center gap-2">
@@ -229,7 +240,7 @@ export default function Snake({user}) {
             </h2>
           </div>
         </div>
-            <div className={`flex items-center justify-center mb-8 ${gameOver ? '' : 'invisible'}`}>
+            <div className={`flex items-center justify-center mb-4 ${gameOver ? '' : 'invisible'}`}>
             <button className="bg-accent text-text font-bold px-4 py-2 rounded-md ml-4" onClick={() => window.location.reload()}>  <img src={retry} alt="Retry" className="w-6 h-6" />
             </button>
             </div>

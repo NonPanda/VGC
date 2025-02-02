@@ -2,7 +2,7 @@ import React, { useEffect,useState,useRef} from 'react';
 
 
 
-export default function Ball({ position, onPositionChange, p1, p2, scoreChange, setWinner }) {
+export default function Ball({ position, onPositionChange, p1, p2, scoreChange, setWinner, canvasHeight, canvasWidth }) {
     
     const[velocity,setVelocity]=useState({x:2,y:2});
     const [speed, setSpeed] = useState(2);
@@ -30,7 +30,7 @@ export default function Ball({ position, onPositionChange, p1, p2, scoreChange, 
         }
         let newX=position.x+velocity.x*speed;
         let newY = position.y + velocity.y*speed;
-        if (newY < 0 || newY > 480) {
+        if (newY < -5 || newY > canvasHeight - 20) {
             setVelocity({ ...velocity, y: -velocity.y });
         }
         if (newX < 0) {
@@ -42,7 +42,7 @@ export default function Ball({ position, onPositionChange, p1, p2, scoreChange, 
 
 
        }
-        if (newX > 1280) {
+        if (newX > canvasWidth - 20) {
             scoreChange((prevScores) => ({ ...prevScores, p1: prevScores.p1 + 1 }));
             resetBall('p1');
             setWinner('p1');
@@ -53,7 +53,6 @@ export default function Ball({ position, onPositionChange, p1, p2, scoreChange, 
         if (collisionp1.collision) {
             const angle=collisionp1.offset/50;
             const newvelocity = (angle*speed>=0 ?Math.min(angle*speed,2):Math.max(angle*speed,-2));
-            console.log(newvelocity);
             setVelocity({x: Math.abs(velocity.x),y:newvelocity });
 
             setSpeed(speed+0.1);
@@ -64,7 +63,6 @@ export default function Ball({ position, onPositionChange, p1, p2, scoreChange, 
         if (collisionp2.collision) {
             const angle=collisionp2.offset/50;
             const newvelocity = (angle*speed>=0 ?Math.min(angle*speed,2):Math.max(angle*speed,-2));
-            console.log(newvelocity);
             setVelocity({x: -Math.abs(velocity.x),y:newvelocity });
             
             setSpeed(speed+0.1);
@@ -76,7 +74,7 @@ export default function Ball({ position, onPositionChange, p1, p2, scoreChange, 
 
     const resetBall = (victors) => {
         setVictor(victors);
-        onPositionChange({ x: 650, y: 200 });
+        onPositionChange({ x: canvasWidth / 2, y: canvasHeight / 2 });
         if(victor==='p1'){
 
             setVelocity({ x: -2, y: 2 });

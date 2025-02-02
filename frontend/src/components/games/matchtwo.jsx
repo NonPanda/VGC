@@ -123,6 +123,16 @@ export default function MatchTwo( {user} ) {
         setSelected([...selected, i]);
     };
 
+    if(user===null){
+        return (
+            <div className="flex flex-col items-center justify-center h-[90%] mt-20">
+                <div className="flex flex-col items-center justify-center space-y-4">
+                    <h1 className="text-4xl font-bold text-text">Please sign in to play match two!</h1>
+                    
+                </div>
+            </div>
+        );
+    }
                 return (
             <div className="relative flex flex-col items-center h-90vh">
             <div className="absolute top-4 right-4 flex items-center gap-4 px-6 h-12 bg-gradient-to-r from-cyan-500/20 to-cyan-600/10 rounded-lg backdrop-blur-sm border border-cyan-500/20 hover:bg-cyan-500/15 transition-all duration-300">

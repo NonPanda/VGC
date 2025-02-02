@@ -87,7 +87,7 @@ export default function Navbar({ user }) {
             </div>
     
             <div 
-                className={`top-[62px] left-0 w-full bg-primary shadow-lg transition-all duration-300 transform z-40
+                className={`absolute top-[62px] left-0 w-full bg-primary shadow-lg transition-all duration-300 transform z-40
                     ${open ? 'translate-y-0 opacity-100 visible' : '-translate-y-full opacity-0 invisible'} 
                     sm:hidden`}
             ><div className="flex flex-col p-4 space-y-4">

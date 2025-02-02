@@ -9,17 +9,29 @@ import {auth} from '../../firebaseConfig';
 import axios from 'axios';
 export default function Breakout({user}) {
 
-    const canvasWidth = 1396;
-    const canvasHeight = 550;
-    const [paddlePosition, setPaddlePosition] = useState({ x: 600, y: 550 });
-    const [ballPosition, setBallPosition] = useState({ x: 685, y: 300 });
+
+    const [canvasWidth, setCanvasWidth] = useState(0.9*window.innerWidth);
+    const [canvasHeight, setCanvasHeight] = useState(0.7*window.innerHeight);
+    useEffect(() => {
+      const handleResize = () => {
+        setCanvasWidth(0.9*window.innerWidth);
+        setCanvasHeight(0.7*window.innerHeight);
+      };
+      window.addEventListener('resize', handleResize);
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }, []);
+    const [paddlePosition, setPaddlePosition] = useState({ x: canvasWidth / 2 - 70, y: canvasHeight-28 });
+    const [ballPosition, setBallPosition] = useState({ x: canvasWidth / 2, y: canvasHeight -100 });
     const [gameStatus, setGameStatus] = useState(null);
     const [timer, setTimer] = useState(0);
     const [userId, setUserId] = useState(null);
     const [highscore, setHighscore] = useState(99999);
+    
 
-    const blockWidth = 280;
-    const blockHeight = 40;
+    const blockWidth = canvasWidth / 5;
+    const blockHeight = canvasHeight / 11;
       const timerRef = useRef(null);
       const timeformat = (time) => {
     if (typeof time !== "number" || time < 0) return "N/A";
@@ -84,13 +96,16 @@ export default function Breakout({user}) {
   });
 
       
-  if(!user){
-    return(
-      <div className="flex flex-col items-center p-4 pt-16">
-        <div className="text-4xl font-bold text-cyan-200">Please Login to Play Breakout</div>
-      </div>
+  if(user===null){
+    return (
+        <div className="flex flex-col items-center justify-center h-[90%] mt-20">
+            <div className="flex flex-col items-center justify-center space-y-4">
+                <h1 className="text-4xl font-bold text-text">Please sign in to play breakout!</h1>
+                
+            </div>
+        </div>
     );
-  }
+}
     return (
               <div className="flex flex-col items-center p-4 pt-16">
                 <div className="absolute top-20 right-4 flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-cyan-600/10 to-cyan-500/20 rounded-xl backdrop-blur-sm border border-cyan-500/20 hover:bg-cyan-500/15 transition-all duration-300">
@@ -117,7 +132,7 @@ export default function Breakout({user}) {
                                    
                 <div className="relative mt-5">
                   <canvas 
-                    width={canvasWidth} 
+                    width={canvasWidth-5} 
                     height={canvasHeight} 
                     className="bg-gray-950 rounded-lg shadow-lg border-white border-2"
                   />
@@ -125,6 +140,7 @@ export default function Breakout({user}) {
                     position={paddlePosition} 
                     onPositionChange={setPaddlePosition} 
                     controls={{right: ['d', 'ArrowRight'], left: ['a', 'ArrowLeft']}} 
+                    canvasWidth={canvasWidth}
                   />
                   <Ball 
                     position={ballPosition} 
@@ -141,6 +157,8 @@ export default function Breakout({user}) {
                     gameStatus={gameStatus} 
                     setGameStatus={setGameStatus} 
                     timer={timer}
+                    canvasHeight={canvasHeight}
+                    canvasWidth={canvasWidth}
                   />
                   {blocks.map((block, index) => (
                     <Block 

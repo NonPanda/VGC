@@ -99,6 +99,18 @@ export default function MazeGame({user}) {
     return () => clearInterval(timerRef.current);
   }, []);
 
+  if(user===null){
+    return (
+        <div className="flex flex-col items-center justify-center h-[90%] mt-20">
+            <div className="flex flex-col items-center justify-center space-y-4">
+                <h1 className="text-4xl font-bold text-text">Please sign in to play the maze game</h1>
+                
+            </div>
+        </div>
+    );
+}
+
+
   return (
     <div className="flex items-center justify-center h-[90vh]">
             <div className="absolute top-24 left-5 flex items-center px-4 py-2 mb-4 gap-6 bg-gradient-to-r from-purple-500/10 to-blue-500/10 p-4 rounded-xl backdrop-blur-sm border border-white/10 shadow-lg">
@@ -122,7 +134,7 @@ export default function MazeGame({user}) {
         </div>
       </div>
 
-      <div className="relative">
+      <div className="relative -mt-10">
         <div className="relative w-[500px] h-[500px]">
           <div className="wrapper" onMouseLeave={handleEnd}>
             <div className="absolute top-[500px] left-[100px] w-[400px] h-16 bg-cyan-400"></div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 export default function Ball({ position, onPositionChange, p1, blocks, setBlocks, blockWidth, blockHeight, setTimer,
-    setHighscore, highscore, userId, timer
+    setHighscore, highscore, userId, timer, canvasWidth, canvasHeight 
  }) {
     const [velocity, setVelocity] = useState({ x: 0, y: 0 });
     const [speed, setSpeed] = useState(2);
@@ -83,14 +83,14 @@ export default function Ball({ position, onPositionChange, p1, blocks, setBlocks
         let newX = position.x + velocity.x * speed;
         let newY = position.y + velocity.y * speed;
     
-        if (newX < 1 || newX > 1370) {
+        if (newX < 1 || newX > canvasWidth - 30) {
             setVelocity((prev) => ({ ...prev, x: -prev.x }));
         }
         if (newY < 0) {
             setVelocity((prev) => ({ ...prev, y: -prev.y }));
         }
     
-        if (newY > 525) { 
+        if (newY > canvasHeight - 25) { 
             setVictor("p2");
             return;
         }
@@ -115,7 +115,7 @@ export default function Ball({ position, onPositionChange, p1, blocks, setBlocks
     const resetBall = () => {
 
         setStart(true);
-        onPositionChange({ x: 650, y: 300 });
+        onPositionChange({ x: canvasWidth / 2, y: canvasHeight - 100 });
         setVelocity({ x: 1, y: 2 });
         setSpeed(2);
         setBlocks(() => {
@@ -136,8 +136,8 @@ export default function Ball({ position, onPositionChange, p1, blocks, setBlocks
 
         setVictor(false);
         setTimer(0);
-        p1.x = 600;
-        p1.y = 550;
+        p1.x = canvasWidth / 2 - 50;
+        p1.y = canvasHeight-28;
         
     };
 

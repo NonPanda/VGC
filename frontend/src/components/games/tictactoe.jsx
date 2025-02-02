@@ -32,9 +32,9 @@ export default function Tictactoe({user}) {
         [2, 4, 6],
     ];
 
-    const [squares, setSquares] = React.useState(Array(9).fill(null));
-    const [winner, setWinner] = React.useState(null);
-    const [wins, setWins] = React.useState([0, 0]);
+    const [squares, setSquares] = useState(Array(9).fill(null));
+    const [winner, setWinner] = useState(null);
+    const [wins, setWins] = useState([0, 0]);
     const [userId, setUserId] = useState(null);
     const [streak, setStreak] = useState(0);
     const [highscore, setHighscore] = useState(0);
@@ -161,14 +161,15 @@ export default function Tictactoe({user}) {
     }
     if(user===null){
         return (
-            <div className="flex flex-col items-center justify-center h-[90%] mt-4">
+            <div className="flex flex-col items-center justify-center h-[90%] mt-20">
                 <div className="flex flex-col items-center justify-center space-y-4">
-                    <h1 className="text-4xl font-bold text-text">Please sign in to play!</h1>
+                    <h1 className="text-4xl font-bold text-text">Please sign in to play tic tac toe!</h1>
                     
                 </div>
             </div>
         );
     }
+
 
     return (
       
@@ -195,7 +196,7 @@ export default function Tictactoe({user}) {
                     alt="User"
                     className="w-20 h-20 rounded-full object-cover"
                   />
-                  <div className={`absolute -top-1 -left-2 w-10 h-10 flex items-center justify-center  ${streak ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+                  <div className={`absolute -top-3 -left-2 w-10 h-10 flex items-center justify-center  ${streak ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
                     <div className="flame"></div>
                     <div className="flame"></div>
                     <span className={`absolute text-red-800 font-extrabold text-xl z-10 animate-pulse  `}>

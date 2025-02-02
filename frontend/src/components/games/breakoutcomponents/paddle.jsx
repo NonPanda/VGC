@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 
 
-export default function Paddle({ position, onPositionChange, controls }) {
+export default function Paddle({ position, onPositionChange, controls, canvasWidth }) {
 
     const{right,left}=controls;
     const [movingLeft, setMovingLeft] = useState(false);
@@ -45,7 +45,7 @@ export default function Paddle({ position, onPositionChange, controls }) {
                newX=Math.max(0,position.x-8);
             }
             if(movingRight){
-                newX=Math.min(1200,position.x+8);
+                newX=Math.min(canvasWidth-200,position.x+8);
             }
             if(newX!==position.x)
             onPositionChange({...position,x:newX});

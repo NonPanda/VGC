@@ -37,7 +37,7 @@ export default function MatchTwo( {user} ) {
             setUserId(user.uid);
             const fetchHighscore = async () => {
                 try {
-                    const response = await axios.get('http://localhost:5000/api/highscores', {
+                    const response = await axios.get('https://vgc-fcst.onrender.com/api/highscores', {
                         params: {
                             userId: user.uid,
                             gameId: '4',
@@ -89,7 +89,7 @@ export default function MatchTwo( {user} ) {
                 const newScore = moves;
                 if (newScore < highscore|| highscore === null||highscore===0) {
                     try {
-                        const response = await axios.post('http://localhost:5000/api/highscores', {
+                        const response = await axios.post('https://vgc-fcst.onrender.com/api/highscores', {
                     userId,
                     gameId: '4',
                     score: newScore,

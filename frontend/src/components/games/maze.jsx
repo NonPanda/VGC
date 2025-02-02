@@ -25,7 +25,7 @@ export default function MazeGame({user}) {
 
       const fetchHighscore = async () => {
         try {
-          const response = await axios.get("http://localhost:5000/api/highscores", {
+          const response = await axios.get("https://vgc-fcst.onrender.com/api/highscores", {
             params: {
               userId: user.uid,
               gameId: "5",
@@ -80,7 +80,7 @@ export default function MazeGame({user}) {
       if (highscore === null || timer < highscore|| highscore === 0) {
         const saveHighscore = async () => {
           try {
-            const response = await axios.post("http://localhost:5000/api/highscores", {
+            const response = await axios.post("https://vgc-fcst.onrender.com/api/highscores", {
               userId: userId,
               gameId: "5",
               score: timer,

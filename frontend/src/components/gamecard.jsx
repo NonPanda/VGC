@@ -10,7 +10,7 @@ export default function Gamecard({ game, isPurchased, isShop }) {
     const handlePurchase = async () => {
         if (isPurchased) return;
         try {
-            const response = await axios.post('http://localhost:5000/api/purchases', {
+            const response = await axios.post('https://vgc-fcst.onrender.com/api/purchases', {
                 userId: user,
                 gameId: game.id,
             });

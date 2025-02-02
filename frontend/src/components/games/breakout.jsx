@@ -34,7 +34,7 @@ export default function Breakout({user}) {
 
       const fetchHighscore = async () => {
         try {
-          const response = await axios.get("http://localhost:5000/api/highscores", {
+          const response = await axios.get("https://vgc-fcst.onrender.com/api/highscores", {
             params: {
               userId: user.uid,
               gameId: "6",

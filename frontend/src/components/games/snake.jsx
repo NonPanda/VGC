@@ -31,7 +31,7 @@ export default function Snake({user}) {
     
           const fetchHighscore = async () => {
             try {
-              const response = await axios.get("http://localhost:5000/api/highscores", {
+              const response = await axios.get("https://vgc-fcst.onrender.com/api/highscores", {
                 params: {
                   userId: user.uid,
                   gameId: "2",
@@ -122,7 +122,7 @@ export default function Snake({user}) {
         
                 const postHighscore=async()=>{
                     try{
-                        const response=await axios.post('http://localhost:5000/api/highscores',{
+                        const response=await axios.post('https://vgc-fcst.onrender.com/api/highscores',{
                             userId,
                             gameId:'2',
                             score:score1,

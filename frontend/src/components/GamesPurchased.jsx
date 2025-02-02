@@ -15,7 +15,7 @@ export default function Games() {
         if (user) {
             const fetchGames = async () => {
                 try {
-                    const response = await axios.get(`http://localhost:5000/api/purchases?userId=${user}`);
+                    const response = await axios.get(`https://vgc-fcst.onrender.com/api/purchases?userId=${user}`);
                     const purchasedGameIds = response.data.map(id => Number(id));
                     setGamesPurchased(purchasedGameIds);
                 } catch (error) {

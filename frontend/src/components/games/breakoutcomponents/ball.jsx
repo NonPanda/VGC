@@ -47,7 +47,7 @@ export default function Ball({ position, onPositionChange, p1, blocks, setBlocks
                         const newScore = timer;
                         if (newScore < highscore|| highscore === null||highscore===0) {
                             try {
-                                const response = await axios.post('http://localhost:5000/api/highscores', {
+                                const response = await axios.post('https://vgc-fcst.onrender.com/api/highscores', {
                             userId,
                             gameId: '6',
                             score: newScore,

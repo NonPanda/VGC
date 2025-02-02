@@ -49,7 +49,7 @@ export default function Tictactoe({user}) {
     
           const fetchHighscore = async () => {
             try {
-              const response = await axios.get("http://localhost:5000/api/highscores", {
+              const response = await axios.get("https://vgc-fcst.onrender.com/api/highscores", {
                 params: {
                   userId: user.uid,
                   gameId: "1",
@@ -133,7 +133,7 @@ export default function Tictactoe({user}) {
                 if (newStreak > (highscore || 0)) {
                 const postHighscore = async () => {
                     try {
-                        const response = await axios.post('http://localhost:5000/api/highscores', {
+                        const response = await axios.post('https://vgc-fcst.onrender.com/api/highscores', {
                             userId,
                             gameId: '1',
                             score: newStreak,

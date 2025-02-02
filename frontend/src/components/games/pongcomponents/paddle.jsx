@@ -11,21 +11,19 @@ export default function Paddle({ position, onPositionChange, controls }) {
 
     useEffect(() => {
         const handleKeyDown = (e) => {
-            const key = e.key;
-            if (up.includes(key)) {
+            if (e.key === up) {
                 setMovingUp(true);
             }
-            if (down.includes(key)) {
+            if (e.key === down) {
                 setMovingDown(true);
             }
         };
 
         const handleKeyUp = (e) => {
-            const key = e.key;
-            if (up.includes(key)) {
+            if (e.key === up) {
                 setMovingUp(false);
             }
-            if (down.includes(key)) {
+            if (e.key === down) {
                 setMovingDown(false);
             }
         };

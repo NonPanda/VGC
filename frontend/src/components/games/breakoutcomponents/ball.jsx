@@ -43,13 +43,8 @@ export default function Ball({ position, onPositionChange, p1, blocks, setBlocks
                     setSpeed(0);
                     setVelocity({ x: 0, y: 0 });
                     setVictor('p1');
-                    console.log(timer);
                     const saveHighscore = async () => {
                         const newScore = timer;
-                        console.log('New Score:', newScore);
-                        console.log('Highscore:', highscore);
-                        console.log('User ID:', userId);
-                        console.log('Game ID:', '6');
                         if (newScore < highscore|| highscore === null||highscore===0) {
                             try {
                                 const response = await axios.post('http://localhost:5000/api/highscores', {
@@ -57,7 +52,6 @@ export default function Ball({ position, onPositionChange, p1, blocks, setBlocks
                             gameId: '6',
                             score: newScore,
                         });
-                                console.log('Highscore saved:', response.data);  
                                 setHighscore(newScore); 
                             } catch (error) {
                                 console.error('Failed to save highscore:', error);
@@ -70,7 +64,7 @@ export default function Ball({ position, onPositionChange, p1, blocks, setBlocks
 
                     return;
                 }                   
-                const hitFromTop = position.y + 30 - velocity.y * speed <= block.y;
+                const hitFromTop=position.y+30-velocity.y*speed <= block.y;
                 const hitFromBottom = position.y - velocity.y * speed >= block.y + blockHeight;
                 const hitFromLeft = position.x + 30 - velocity.x * speed <= block.x;
                 const hitFromRight = position.x - velocity.x * speed >= block.x + blockWidth;
@@ -103,7 +97,7 @@ export default function Ball({ position, onPositionChange, p1, blocks, setBlocks
     
         const collision = checkCollision(p1, { x: newX, y: newY });
         if (collision.collision) {
-            const newSpeed = Math.min(speed + 0.2, 3); 
+            const newSpeed = Math.min(speed + 0.2, 2.5); 
             const newVelocityX = Math.sin(collision.angle) * newSpeed;
             const newVelocityY = -Math.abs(Math.cos(collision.angle)) * newSpeed; 
             setVelocity({ x: newVelocityX, y: newVelocityY });
@@ -117,7 +111,7 @@ export default function Ball({ position, onPositionChange, p1, blocks, setBlocks
     
         onPositionChange({ x: newX, y: newY });
     };
-
+    const BLOCK_COLORS = ['bg-primary', 'bg-cool', 'bg-accent']
     const resetBall = () => {
 
         setStart(true);
@@ -128,7 +122,13 @@ export default function Ball({ position, onPositionChange, p1, blocks, setBlocks
             const initialBlocks = [];
             for (let row = 0; row < 5; row++) {
                 for (let col = 0; col < 5; col++) {
-                    initialBlocks.push({ x: col * blockWidth, y: row * blockHeight, id: `${row}-${col}` });
+                    const randomColor = BLOCK_COLORS[Math.floor(Math.random() * BLOCK_COLORS.length)];
+                    initialBlocks.push({ 
+                        x: col * blockWidth, 
+                        y: row * blockHeight, 
+                        id: `${row}-${col}`,
+                        color: randomColor 
+                    });
                 }
             }
             return initialBlocks;
@@ -136,6 +136,9 @@ export default function Ball({ position, onPositionChange, p1, blocks, setBlocks
 
         setVictor(false);
         setTimer(0);
+        p1.x = 600;
+        p1.y = 550;
+        
     };
 
     useEffect(() => {
@@ -159,7 +162,7 @@ export default function Ball({ position, onPositionChange, p1, blocks, setBlocks
     return (
         <>
             <div
-                className={`absolute w-[30px] h-[30px] bg-white ${!victor && (velocity.x !== 0 || velocity.y !== 0) ? 'shadow-[0_0_6px_rgba(255,255,255,0.5)]' : ''}`} // Updated to w-10 h-10
+                className={`absolute w-[30px] h-[30px] bg-white ${!victor && (velocity.x !== 0 || velocity.y !== 0) ? 'shadow-[0_0_6px_rgba(255,255,255,0.5)]' : ''}`} 
                 style={{
                     left: position.x,
                     top: position.y,

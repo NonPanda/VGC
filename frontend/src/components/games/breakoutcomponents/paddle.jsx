@@ -11,38 +11,33 @@ export default function Paddle({ position, onPositionChange, controls }) {
     useEffect(() => {
         
         const handleKeyDown = (e) => {
-            let newX=position.x;
-            const key=e.key.toLowerCase();
-            if (key === right) {
-                setMovingRight(true);
-            }
-            if(key === left){
+            if (left.includes(e.key)) {
                 setMovingLeft(true);
             }
-            if(newX!==position.x)
-
-
-            onPositionChange({...position, x: newX});
-
-        };
-        const handleKeyUp = (e) => {
-            const key = e.key.toLowerCase();
-            if (key === right) {
-                setMovingRight(false);
+            if (right.includes(e.key)) {
+                setMovingRight(true);
             }
-            if(key === left){
+        };
+
+        const handleKeyUp = (e) => {
+            if (left.includes(e.key)) {
                 setMovingLeft(false);
             }
+            if (right.includes(e.key)) {
+                setMovingRight(false);
+            }
         };
+
         window.addEventListener('keydown', handleKeyDown);
         window.addEventListener('keyup', handleKeyUp);
 
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
             window.removeEventListener('keyup', handleKeyUp);
-        };
+        }
+    }, [left,right]
+    );
 
-    });
     useEffect(()=>{
         const interval=setInterval(()=>{
             let newX=position.x;

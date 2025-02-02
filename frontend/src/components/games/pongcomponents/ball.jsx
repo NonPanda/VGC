@@ -52,16 +52,21 @@ export default function Ball({ position, onPositionChange, p1, p2, scoreChange, 
         const collisionp1=checkcollision(p1,{x:newX,y:newY});
         if (collisionp1.collision) {
             const angle=collisionp1.offset/50;
-            const newvelocity=Math.min(3,angle*speed);
+            const newvelocity = (angle*speed>=0 ?Math.min(angle*speed,2):Math.max(angle*speed,-2));
+            console.log(newvelocity);
             setVelocity({x: Math.abs(velocity.x),y:newvelocity });
-            setSpeed(speed+0.5);
+
+            setSpeed(speed+0.1);
+        
 
         }
         const collisionp2=checkcollision(p2,{x:newX,y:newY});
         if (collisionp2.collision) {
             const angle=collisionp2.offset/50;
-            const newvelocity=Math.min(3,angle*speed);
+            const newvelocity = (angle*speed>=0 ?Math.min(angle*speed,2):Math.max(angle*speed,-2));
+            console.log(newvelocity);
             setVelocity({x: -Math.abs(velocity.x),y:newvelocity });
+            
             setSpeed(speed+0.1);
         }
         

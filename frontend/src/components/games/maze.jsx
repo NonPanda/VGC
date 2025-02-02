@@ -117,7 +117,7 @@ export default function MazeGame({user}) {
         <div className="flex items-center gap-2">
           <span className="text-cyan-200 text-2xl font-medium">Best Time:</span>
           <span className="text-2xl font-bold text-cyan-200">
-            {highscore !== null ? timeformat(highscore) : "N/A"}
+            {highscore !== null&&highscore!==0 ? timeformat(highscore) : "N/A"}
           </span>
         </div>
       </div>

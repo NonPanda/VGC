@@ -159,8 +159,19 @@ export default function Tictactoe({user}) {
         setSquares(Array(9).fill(null));
         setWinner(null);
     }
+    if(user===null){
+        return (
+            <div className="flex flex-col items-center justify-center h-[90%] mt-4">
+                <div className="flex flex-col items-center justify-center space-y-4">
+                    <h1 className="text-4xl font-bold text-text">Please sign in to play!</h1>
+                    
+                </div>
+            </div>
+        );
+    }
 
     return (
+      
       <div className="relative flex flex-col items-center h-[90%] mt-4">
       <div className="-mt-4 absolute top-4 right-4 flex items-center gap-4 px-6 h-12 bg-gradient-to-r from-cyan-500/20 to-cyan-600/10 rounded-lg backdrop-blur-sm border border-cyan-500/20 hover:bg-cyan-500/15 transition-all duration-300">
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -191,7 +202,7 @@ export default function Tictactoe({user}) {
                       {streak}
                     </span>
                   </div>
-                  <div className="absolute -bottom-2 -right-2 bg-primary rounded-full p-2">
+                  <div className="absolute -bottom-2 -right-2 bg-primary rounded-full p-2 border-2 border-accent">
                     <span className="text-white font-bold"> {wins[0]} </span>
                   </div>
                 </div>
@@ -204,7 +215,7 @@ export default function Tictactoe({user}) {
                     alt="CPU"
                     className="w-20 h-20 rounded-full object-cover"
                   />
-                  <div className="absolute -bottom-2 -right-2 bg-primary rounded-full p-2">
+                  <div className="absolute -bottom-2 -right-2 bg-primary rounded-full p-2 border-2 border-accent">
                     <span className="text-white font-bold">{wins[1]}</span>
                   </div>
                 </div>
@@ -214,16 +225,16 @@ export default function Tictactoe({user}) {
 
 
     <div className="flex flex-col items-center justify-center px-5 py-2 rounded-lg">
-    <button
-  className={`bg-accent text-text p-3 rounded-full mb-5 transition-opacity duration-200 ${winner ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
-  onClick={handleWin}
->
-  <img src={retry} alt="Retry" className="w-6 h-6" />
-</button>        <div className="grid grid-cols-3 gap-4 mb-3">
-            {squares.map((value, index) => (
-                <Square key={index} value={value} onSquareClick={() => handleClick(index)} />
-            ))}
-        </div>
+        <button
+      className={`bg-accent text-text p-3 rounded-full mb-5 transition-opacity duration-200 ${winner ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
+      onClick={handleWin}
+    >
+        <img src={retry} alt="Retry" className="w-6 h-6" />
+      </button>        <div className="grid grid-cols-3 gap-4 mb-3">
+                  {squares.map((value, index) => (
+                      <Square key={index} value={value} onSquareClick={() => handleClick(index)} />
+                  ))}
+              </div>
 
         <div className="flex justify-center gap-9">
     <div className="flex flex-col items-center">

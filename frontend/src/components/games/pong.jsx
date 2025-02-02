@@ -116,7 +116,7 @@ export default function Pong({user}) {
                 {streak}
               </span>
             </div>
-            <div className="absolute -bottom-2 -right-2 bg-primary rounded-full p-2">
+            <div className="absolute -bottom-2 -right-2 bg-primary rounded-full p-2 border-2 border-accent">
               <span className="text-white font-bold">{score.p1}</span>
             </div>
           </div>
@@ -129,7 +129,7 @@ export default function Pong({user}) {
               alt="CPU"
               className="w-20 h-20 rounded-full object-cover"
             />
-            <div className="absolute -bottom-2 -right-2 bg-primary rounded-full p-2">
+            <div className="absolute -bottom-2 -right-2 bg-primary rounded-full p-2 border-2 border-accent">
               <span className="text-white font-bold">{score.p2}</span>
             </div>
           </div>
